@@ -1,6 +1,11 @@
 blank_issues_enabled: false
 
+# 本仓库未启用 Discussions（/discussions 返回 404），所以这里只放两个确定可用的入口，
+# 不要填 https://github.com/ 这类占位链接。
 contact_links:
-  - name: GitHub 讨论区 / GitHub Discussions
-    url: https://github.com/
-    about: 请在这里提出有关如何使用本输入法的疑问。 / Please ask questions about how to use the input method here.
+  - name: 安装与构建说明 / README
+    url: https://github.com/charent/WhaleIME/blob/main/README.md
+    about: 安装、构建、常见问题先看这里。 / Installation, building and FAQ.
+  - name: 下载最新版本 / Latest Release
+    url: https://github.com/charent/WhaleIME/releases/latest
+    about: 提交 issue 前请确认问题在最新版本上仍可复现。 / Please check the latest release first.

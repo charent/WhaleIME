@@ -4,11 +4,20 @@ labels:
   - bug
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        提交前请先搜索[已有 issue](https://github.com/charent/WhaleIME/issues?q=is%3Aissue)，
+        并确认问题在[最新版本](https://github.com/charent/WhaleIME/releases/latest)上依然存在。
+        / Please search existing issues and check the latest release before submitting.
+
   - type: textarea
     id: summary
     attributes:
       label: 摘要 / Summary
-      description: 简要描述遇到的问题
+      description: 简要描述遇到的问题。 / Briefly describe the problem.
+      placeholder: 例：九键输入 zhongguo 后选词，候选栏闪一下又回到未上屏状态。 / eg. ...
+    validations:
       required: true
 
   - type: textarea
@@ -35,7 +44,18 @@ body:
     id: screenshot
     attributes:
       label: 截图 / Screenshot
-      description: 附上截图以帮助解释问题。 / Attach screenshots to help explain the bug.
+      description: 附上截图以帮助解释问题（可直接拖入或粘贴）。 / Attach screenshots to help explain the bug.
+    validations:
+      required: false
+
+  - type: textarea
+    id: crash_log
+    attributes:
+      label: 崩溃日志 / Crash Log
+      description: |
+        崩溃 / 闪退时请附上日志：在「设置 → 高级设置 → 导出崩溃日志」生成 zip，再把该 zip 拖进这里。
+        / If the app crashes, export the zip via Settings → Advanced → Export crash logs and drop it here.
+      placeholder: 拖入 whaleIme_crash_log_*.zip / Drag the exported zip here.
     validations:
       required: false
 
@@ -50,27 +70,37 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### 设备信息 / Device Infomation
+        ### 设备信息 / Device Information
+        以下条目可在「设置 → 关于」页找到（可截图）。 / These entries are on the Settings → About page.
 
   - type: input
     id: os_version
     attributes:
       label: 系统版本 / OS Version
+      description: 例如 Android 15。 / eg. Android 15.
     validations:
       required: true
 
   - type: input
     id: app_version
     attributes:
-      label: 应用版本 / App Version
-      description: “关于”页面中的“更新日志”条目，长按复制。 / It could be found below "Changelog" in the "About" page, long press to copy it.
+      label: 版本 / App Version
+      description: 「关于 → 版本」，形如 261122.1530。 / Settings → About → Version, eg. 261122.1530.
     validations:
       required: true
 
-  - type: textarea
-    id: build_info
+  - type: input
+    id: build_git_hash
     attributes:
-      label: 构建信息 / Build Information
-      description: “关于”页面中的“构建信息”条目，长按复制。 / It could be found below "Build information" in the "About" page, loog press to copy it.
+      label: 构建哈希 / Build Hash
+      description: 「关于 → 构建哈希」。 / Settings → About → Build hash.
     validations:
       required: true
+
+  - type: input
+    id: build_time
+    attributes:
+      label: 构建时间 / Build Time
+      description: 「关于 → 构建时间」。 / Settings → About → Build time.
+    validations:
+      required: false

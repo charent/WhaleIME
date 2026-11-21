@@ -31,27 +31,29 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### 设备信息 / Device Infomation
+        ### 设备信息 / Device Information
+        以下条目可在「设置 → 关于」页找到（可截图）。 / These entries are on the Settings → About page.
 
   - type: input
     id: os_version
     attributes:
       label: 系统版本 / OS Version
+      description: 例如 Android 15。 / eg. Android 15.
     validations:
       required: true
 
   - type: input
     id: app_version
     attributes:
-      label: 应用版本 / App Version
-      description: “关于”页面中的“更新日志”条目，长按复制。 / It could be found below "Changelog" in the "About" page, long press to copy it.
+      label: 版本 / App Version
+      description: 「关于 → 版本」，形如 261122.1530。 / Settings → About → Version, eg. 261122.1530.
     validations:
       required: true
 
-  - type: textarea
-    id: build_info
+  - type: input
+    id: build_git_hash
     attributes:
-      label: 构建信息 / Build Information
-      description: “关于”页面中的“构建信息”条目，长按复制。 / It could be found below "Build information" in the "About" page, loog press to copy it.
+      label: 构建哈希 / Build Hash
+      description: 「关于 → 构建哈希」。 / Settings → About → Build hash.
     validations:
-      required: true
+      required: false

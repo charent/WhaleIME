@@ -1,9 +1,17 @@
 name: Build and Release WhaleIME APK
 # 触发条件：当推送符合 'v*' 格式的标签时触发，例如 v1.0.0
+# workflow_dispatch：手动试跑（分支上只构建 + 验签，不创建 release）
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+
+# 同一 ref 重复触发时取消旧运行，避免两个 job 同时往同一个 release 传资产
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build and Sign APK
@@ -21,9 +29,18 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      # app/build.gradle 的 release 签名读 RELEASE_* 环境变量（缺 keystore 时不报错、
+      # 静默产出未签名 APK，所以下面还有一步 apksigner 验签兜底）。
+      # 密钥库路径固定为 keystore/release.p12：keystore/ 整个目录被 .gitignore 忽略，
+      # 干净 checkout 上并不存在，必须先 mkdir；也不要把路径塞进 secret 里当文件名用，
+      # 否则重定向会直接 No such file or directory。
       - name: Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > ${{ secrets.RELEASE_STORE_FILE }}
+          mkdir -p keystore
+          printf '%s' "$KEYSTORE_BASE64" | tr -d '\r\n' | base64 -d > keystore/release.p12
+          test -s keystore/release.p12
 
       - name: Make gradlew executable
         run: chmod +x gradlew
@@ -32,9 +49,10 @@ jobs:
       # runner 自带的 SDK 里没有这两个版本，缺失时 configureCMake* 直接失败。
       - name: Install CMake and NDK
         run: |
-          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          SDK="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          SDKMANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
           if [ ! -x "$SDKMANAGER" ]; then
-            SDKMANAGER="$(ls -d "$ANDROID_SDK_ROOT"/cmdline-tools/*/bin/sdkmanager | head -n 1)"
+            SDKMANAGER="$(ls -d "$SDK"/cmdline-tools/*/bin/sdkmanager | head -n 1)"
           fi
           yes | "$SDKMANAGER" --install "cmake;3.31.6" "ndk;28.0.13004108"
 
@@ -45,12 +63,34 @@ jobs:
       - name: Build Release APK
         run: ./gradlew assemble
         env:
-          RELEASE_STORE_FILE: ${{ secrets.RELEASE_STORE_FILE }}
+          RELEASE_STORE_FILE: keystore/release.p12
           RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
           RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
 
+      # 与 scripts/build-release.ps1 的定位一致：签名配置有问题时 Gradle 不会报错，
+      # 只会产出未签名的 APK，必须在发布前显式验签并打印证书指纹。
+      - name: Verify APK signatures
+        run: |
+          SDK="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          APKSIGNER="$(ls -d "$SDK"/build-tools/*/apksigner 2>/dev/null | sort -V | tail -n 1)"
+          if [ ! -x "$APKSIGNER" ]; then
+            echo "::error::未找到 apksigner（$SDK/build-tools）"
+            exit 1
+          fi
+          shopt -s nullglob
+          apks=(app/build/outputs/apk/release/*.apk app/build/outputs/apk/debug/*.apk)
+          if [ ${#apks[@]} -eq 0 ]; then
+            echo "::error::没有产出任何 APK"
+            exit 1
+          fi
+          for apk in "${apks[@]}"; do
+            echo "=== $apk ==="
+            "$APKSIGNER" verify --print-certs "$apk"
+          done
+
       - name: Upload APKs to Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
