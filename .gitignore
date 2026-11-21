@@ -1,0 +1,43 @@
+*.iml
+.gradle/
+# 本机配置（sdk.dir 等），模板见 local.properties.example
+local.properties
+.DS_Store
+# 只忽略构建产物目录本身，不用裸 `build/`——否则会把源码包（keyboard/build 这类）一起吞掉
+/build/
+/*/build/
+# Rime 词典 bin（scripts/precompile-dict.ps1 在设备上生成，不入库）
+ime-native/src/main/assets/rime/build/
+captures/
+.externalNativeBuild
+# externalNativeBuild（hccr_jni）的 CMake 本地编译缓存
+.cxx/
+.idea/
+*.jks
+# 签名材料（私钥 + 口令）整目录不入库；需要提交模板时用 *.example
+keystore/*
+!keystore/*.example
+/.kotlin
+*.log
+.workbuddy
+.zcode/
+*.pyc
+
+# 误按语料评估的临时产物（gen-typo-corpus.py 生成，随用随删）
+ime-native/native/scripts/in-typo.txt*
+ime-native/native/scripts/out-typo.txt
+
+# 原生引擎构建中间产物（ime-native/native/scripts 下的脚本生成，体积大不入库）
+ime-native/native/native-build/
+# 依赖静态库（约 500 MB/ABI），clone 后执行 build-deps.ps1 生成
+ime-native/native/prebuilt/
+
+# ncnn 预编译库（github release ncnn-20250503-android-vulkan.zip）只入库手写引擎实际编译的
+# arm64-v8a；x86_64 需要时从官方 zip 解压到本地（手写默认不为 x86_64 编译，见
+# ime-native/build.gradle 的 externalNativeBuild.cmake.abiFilters）
+ime-native/third_party/ncnn-android/armeabi-v7a/
+ime-native/third_party/ncnn-android/x86/
+ime-native/third_party/ncnn-android/x86_64/
+
+# docs 暂不入库（内含约 1.1 GB 的 rime-frost 词库与探针产物），后续单独处理
+docs

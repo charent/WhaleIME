@@ -1,0 +1,17 @@
+## 本机配置模板：复制为 local.properties 后按自己的环境修改。
+## local.properties 已被 .gitignore 忽略，不会入库；本模板文件会入库。
+##
+## 唯一的配置项是 Android SDK 位置，Gradle 与 scripts/ 下的构建、打包、部署脚本都读它。
+## properties 文件里的反斜杠与冒号需要转义，Windows 路径示例（注意双反斜杠）：
+##   sdk.dir=C\:\\Users\\<你的用户名>\\AppData\\Local\\Android\\Sdk
+## Linux / macOS 直接写绝对路径：
+##   sdk.dir=/home/<你的用户名>/Android/Sdk
+##   sdk.dir=/Users/<你的用户名>/Library/Android/sdk
+##
+## 也可以不建这个文件，改用环境变量覆盖；脚本的解析顺序是：
+##   显式参数（如 -SdkRoot） > ANDROID_SDK_ROOT / ANDROID_HOME > local.properties > 平台默认安装位置
+##
+## 注意：release 签名材料不在这里配置，见 keystore/keystore.properties
+## （由 scripts/build-release.ps1 校验）以及 RELEASE_* 环境变量。
+
+# sdk.dir=C\:\\Users\\<你的用户名>\\AppData\\Local\\Android\\Sdk

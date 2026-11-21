@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="35dp"
+    android:viewportHeight="48"
+    android:viewportWidth="48"
+    android:width="35dp">
+    <!-- 火星文（火星符号 ♂）：圆 + 指向右上的箭头 -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M9.5,27.5A10,10 0 0,1 29.5,27.5A10,10 0 0,1 9.5,27.5Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="3.2" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M26.5,20.5L37.5,9.5M31,9.5L37.5,9.5L37.5,16"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3.2" />
+</vector>

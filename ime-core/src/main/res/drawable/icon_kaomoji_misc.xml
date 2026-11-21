@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="88dp"
+    android:height="88dp"
+    android:viewportWidth="88"
+    android:viewportHeight="88">
+    <path
+        android:pathData="M15,17C8.2,27.5 8.2,60.5 15,71"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M73,17C79.8,27.5 79.8,60.5 73,71"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <!-- 四角星（装饰 / 其他） -->
+    <path
+        android:pathData="M44,25L48,40L63,44L48,48L44,63L40,48L25,44L40,40Z"
+        android:fillColor="#000000" />
+</vector>

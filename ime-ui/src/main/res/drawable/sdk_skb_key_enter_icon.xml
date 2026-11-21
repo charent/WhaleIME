@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 回车键图标：长横杆 + 方折角 + 人字箭头，线宽 2.0。
+     必须用正方形 viewport：KeyGrid 把 keyIcon 用 setBounds(0,0,px,px) 画进正方形位图，
+     viewport 宽高不一致会被非等比拉伸（旧版 400x196 就被纵向拉伸了 2.04 倍）。
+     颜色写死为黑色，实际观感由 KeyGrid 的 setTint(onAccent) 决定。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M20.3 6.5 V13.3 H3.7" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M8.5 9.1 L3.7 13.3 L8.5 17.5" />
+</vector>

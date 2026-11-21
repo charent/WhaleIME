@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 深色模式下的同名主题：底色跟随系统，状态栏沿用品牌色 + 浅色图标 -->
+    <style name="Theme.AppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/brand_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

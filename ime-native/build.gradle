@@ -1,0 +1,72 @@
+// :ime-native —— 原生引擎与引擎数据（载荷模块 / payload）
+//
+// 硬性约定：本模块只被打包，不被任何模块在编译期依赖（app 用 runtimeOnly 引用它）。
+// 所以**不要把 Kotlin/Java 业务代码写进来**：源码依赖请放 :ime-core / :ime-ui，
+// vendored 第三方源码请放 :ime-vendor。载荷需要全量进包，依赖需要参与裁剪，两者语义相反。
+//
+// 这个模块没有任何 Kotlin/Java 业务代码，也不产生 R 引用，职责只有两件事：
+//   1. 携带「必须进 APK」的二进制资产：src/main/assets（Rime schema/词典、手写模型、
+//      pinyin 数据、表情字体）与 src/main/jniLibs（libwhaleime.so）；
+//   2. 唯一以 Gradle 方式构建原生库的模块：手写引擎 src/main/cpp/hccr → libhccr_jni.so。
+//
+// 注意有两条互不干扰的原生构建路径：
+//   · src/main/cpp/hccr  —— Gradle/CMake，产物 libhccr_jni.so；
+//   · native/            —— 脚本驱动（native/scripts/build-engine.ps1），产物
+//                           libwhaleime.so，直接覆盖 src/main/jniLibs/<abi>/。
+// 两者不能合并：都会往 jniLibs 写库，同名产物会互相覆盖。
+
+plugins {
+    id 'com.android.library'
+}
+
+// 手写引擎的 ABI 集合：
+//   · arm64-v8a 始终编（真机 / 发布包）；
+//   · x86_64 只在本地存在 ncnn 的 x86_64 预编译库时才编——该目录不入库（见根
+//     .gitignore），干净 clone / CI 上缺 ncnn 会让 CMake 在 configure 阶段直接 FATAL，
+//     所以不能无条件写死。
+// 模拟器的 ro.product.cpu.abi 是 x86_64，安装包只会解出 lib/x86_64/*；缺
+// libhccr_jni.so 时 HWEngine.isAvailable 为 false、手写入口被过滤掉。
+def handwritingAbis = ['arm64-v8a']
+if (file('third_party/ncnn-android/x86_64/lib/cmake/ncnn').exists()) {
+    handwritingAbis += 'x86_64'
+}
+
+android {
+    compileSdk whaleCompileSdk
+    // 注意：不能叫 com.whale.ime.native —— `native` 是 Java 关键字，AGP 会直接拒绝
+    // （Namespace 'com.whale.ime.native' is not a valid Java package name）。
+    // 本模块没有源码、R 与 BuildConfig 也不产出，namespace 只用于生成 manifest 占位。
+    // 曾用 com.whale.ime.engine，与 ime-core 的引擎包同名会造成误解，故加 nativepack 后缀。
+    namespace 'com.whale.ime.nativepack'
+    // NDK 28 保证 libhccr_jni.so 的 16KB 页对齐（Android 16 真机）
+    ndkVersion '28.0.13004108'
+
+    defaultConfig {
+        minSdk whaleMinSdk
+        // 库模块不声明 targetSdk（无意义且 AGP 会告警），最终以 app 为准。
+
+        externalNativeBuild {
+            cmake {
+                abiFilters(*handwritingAbis)
+            }
+        }
+    }
+
+    // 手写识别引擎：Handwritten (NCNN INT8)，仅此模块走 Gradle 原生构建
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/hccr/CMakeLists.txt'
+            version '3.31.6'
+        }
+    }
+
+    buildFeatures {
+        // 无源码，AGP 8 默认也是 false，这里显式写出来表明「本模块不产出 BuildConfig」
+        buildConfig = false
+    }
+
+    compileOptions {
+        sourceCompatibility whaleJavaVersion
+        targetCompatibility whaleJavaVersion
+    }
+}

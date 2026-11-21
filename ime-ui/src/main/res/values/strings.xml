@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!--
+        品牌名：库内代码（设置页、通知标题、安装引导）通过 R.string.app_name 取用。
+        宿主 app 模块有同名 string（app/src/main/res/values/strings.xml），
+        打包时以宿主为准——这里只是保证库自身能编译、单独跑也不缺资源。
+    -->
+    <string name="app_name">小鲸鱼输入法</string>
+    <!--系统设置「屏幕键盘」里，输入法名称下方的小标题（method.xml 里 subtype 的 label）-->
+    <string name="ime_subtype_summary">拼音26键、九键、双拼、笔画、手写和English (US)</string>
+    <!--设置页面-->
+    <string name="setting_ime_sdk">输入法设置</string>
+    <string name="setting_ime_input">输入与方案</string>
+    <string name="setting_ime_other">桌面图标</string>
+    <string name="setting_ime_keyboard">键盘与布局</string>
+    <string name="setting_ime_prefixs">侧边栏符号</string>
+    <string name="theme_select">主题选择</string>
+    <string name="setting_ime_keyboard_show">键盘效果</string>
+    <string name="setting_ime_keyboard_height">编辑键盘</string>
+    <string name="ime_settings_voice">语音识别</string>
+    <string name="ime_settings_handwriting">手写设置</string>
+    <string name="keypopup_input_settings">按键气泡</string>
+    <string name="long_press_timeout">按键长按灵敏度</string>
+    <string name="keyboard_mnemonic_show">双拼提示</string>
+    <string name="keyboard_double_input_key">双拼显示完整拼音</string>
+    <string name="keyboard_flower_typeface">火星文</string>
+    <string name="keyboard_symbol_show">上划选择符号</string>
+    <!--符号/表情面板右下角回到键盘的按钮-->
+    <string name="keyboard_back">返回</string>
+    <string name="candidate_size_input_setting">候选栏高度</string>
+    <string name="candidates_bottom_gap">候选栏与键盘间距</string>
+    <string name="keyboard_font_size">字母字号</string>
+    <!--键盘字体：候选字与键帽文字的大小、粗细-->
+    <string name="setting_keyboard_font">字体</string>
+    <string name="setting_keyboard_interaction">按键与候选栏</string>
+    <string name="enter_key_setting">回车键</string>
+    <string name="enter_key_send_in_chat">回车键发送消息</string>
+    <string name="enter_key_send_in_chat_summary">微信、QQ、飞书、钉钉等聊天输入框中显示「发送」，点击发送消息，长按换行</string>
+    <string name="candidate_font_size">候选字大小</string>
+    <string name="candidate_font_weight">候选字粗细</string>
+    <string name="keyboard_letter_font_weight">字母粗细</string>
+    <string name="keyboard_symbol_font_size">键帽符号大小</string>
+    <string name="keyboard_symbol_font_weight">键帽符号粗细</string>
+    <string name="keyboard_function_font_size">功能键文字大小</string>
+    <string name="keyboard_function_font_weight">功能键文字粗细</string>
+    <string name="font_weight_normal">常规</string>
+    <string name="font_weight_medium">中等</string>
+    <string name="font_weight_bold">加粗</string>
+    <string name="changeKeyboard">切换键盘</string>
+    <string name="chinese_input_setting">中文输入</string>
+    <string name="search_english_cell">英文单词补全</string>
+    <string name="setting_jian_fan">繁体输入</string>
+    <string name="chinese_association">中文联想</string>
+    <string name="chinese_association_date">中文联想显示时间</string>
+    <string name="mixed_input_setting">中英数混输</string>
+    <string name="chinese_digit_space">中文与数字之间自动加空格</string>
+    <string name="chinese_digit_space_summary">中文后接数字、数字后接中文时自动补一个空格（中123文  → 中 123 文）</string>
+    <string name="chinese_english_space">中文与英文之间自动加空格</string>
+    <string name="chinese_english_space_summary">中文后接字母、字母后接中文时自动补一个空格；标点、空白前后不补（中abc文  → 中 abc 文）</string>
+    <string name="pinyin_correction">拼音纠错</string>
+    <string name="pinyin_correction_enable">拼写纠错</string>
+    <string name="pinyin_correction_enable_summary">打错字母、漏字母、重复输入时给出纠正后的候选，正确输入不受影响</string>
+    <string name="pinyin_fuzzy_enable">模糊音</string>
+    <string name="pinyin_fuzzy_enable_summary">按口音扩展候选（z/zh、c/ch、s/sh、n/l、f/h、r/l、an/ang、en/eng、in/ing）</string>
+    <string name="pinyin_v_as_u_enable">v 键等同 u</string>
+    <string name="pinyin_v_as_u_enable_summary">j/q/x/y 后面把 v 当作 u（qv → qu 去、jve → jue 觉）；l、n 后的 v 仍是 ü。对全键拼音与 14 键生效</string>
+    <string name="EnglishInput">英文输入</string>
+    <string name="engish_full_keyboard">数字行</string>
+    <string name="keyboard_swap_lang_number_key">交换「中/EN」与「123」键位置</string>
+    <string name="keyboard_swap_lang_number_key_summary">26 键、14 键的底行把「中/EN」放到最右、把「123」放到「中/EN」原来的位置</string>
+    <string name="space_auto">英文单词自动追加空格</string>
+    <string name="english_sentence_case">英文句首自动大写</string>
+    <string name="english_sentence_case_summary">英文模式下，句首、句末标点（. ! ? …）或换行后的第一个字母自动大写；按 Shift 输入的、数字与符号、网址和邮箱框都不受影响</string>
+    <string name="english_punct_space">英文标点后自动加空格</string>
+    <string name="english_punct_space_summary">英文模式下，标点（. , ! ? ; : …）后直接接单词时自动补一个空格（abc.DEF → abc. DEF）；小数点、网址和邮箱框不受影响</string>
+    <string name="emoji_setting">表情输入</string>
+    <string name="emoji_input">候选词中显示Emoji表情</string>
+    <string name="symbol_setting">符号输入</string>
+    <string name="symbol_pair_input">成对符号自动匹配</string>
+    <!-- Used by the toggle keys in soft keyboards. -->
+    <string name="cancel">取消</string>
+    <!--键盘设置条目-->
+    <string name="skb_item_settings">设置</string>
+    <string name="skb_item_custom">定制工具栏</string>
+    <!--布局部分文件提取文本-->
+    <string name="paint_thickness">笔画粗细</string>
+    <string name="discern_sensitive">识别灵敏度</string>
+    <string name="handwriting_auto_commit">停笔后自动上屏</string>
+    <string name="handwriting_auto_commit_tips">书写停顿超过识别灵敏度时间后，自动把第一候选上屏并清空画布</string>
+    <string name="keyboard_theme_night">深色模式</string>
+    <!--编辑键盘：键盘内浮层的操作条-->
+    <string name="setting_ime_keyboard_height_reset">重置</string>
+    <string name="setting_ime_keyboard_height_sure">确认</string>
+    <string name="keyboard_editor_height">高度</string>
+    <string name="keyboard_editor_height_hint">上下拖动调整键盘高度</string>
+    <string name="keyboard_editor_gap">距底</string>
+    <string name="keyboard_editor_gap_hint">上下拖动调整键盘与屏幕底部的距离</string>
+    <string name="keyboard_editor_done">完成</string>
+    <!--设置页「键盘尺寸」-->
+    <string name="setting_keyboard_size">键盘尺寸</string>
+    <string name="setting_keyboard_height_ratio">键盘高度</string>
+    <string name="setting_keyboard_height_ratio_summary">按键区占屏幕高度的比例，可压扁或拉高键盘；横屏使用单独记忆的高度</string>
+    <string name="setting_keyboard_bottom_gap">距屏幕底部</string>
+    <string name="setting_keyboard_bottom_gap_summary">键盘底边与下方功能条之间的留白，可整体上移键盘；全面屏优化条与系统手势区不计入</string>
+    <!--手写模式-->
+    <string name="keyboard_menu_lock_english">锁定英语键盘(下次弹出保持英语模式)</string>
+    <string name="input_methods">其他输入方式</string>
+    <string name="advanced">高级</string>
+    <string name="button_vibration_amplitude">触感强度</string>
+    <string name="clipboard_listening">记录剪贴板历史</string>
+    <string name="clipboard_limit">剪贴板历史记录上限</string>
+    <string name="clipboard_layout_compact_mode">剪贴板布局</string>
+    <string name="clipboard_layout_mode_list">单列布局</string>
+    <string name="clipboard_layout_mode_grid">双列布局</string>
+    <string name="clipboard_layout_mode_flexbox">紧凑布局</string>
+    <string name="clipboard_clear">清空剪贴板</string>
+    <string name="clipboard_empty_ltip">无任何内容</string>
+    <string name="about">关于</string>
+    <string name="feedback">吐槽与反馈</string>
+    <string name="app_version">应用版本</string>
+    <string name="sdk_version">SDK版本</string>
+    <string name="version">版本</string>
+    <string name="build_git_hash">构建哈希</string>
+    <string name="build_time">构建时间</string>
+    <string name="clipboard">剪贴板</string>
+    <string name="full_display_keyboard">全面屏键盘优化</string>
+    <string name="keyboard_full_display_advanced_tip">多功能键盘</string>
+    <string name="keyboard_full_display_normal_tip">普通键盘</string>
+    <string name="keyboard_full_display_key_left">左侧功能键</string>
+    <string name="keyboard_full_display_key_right">右侧功能键</string>
+    <string name="keyboard_full_display_key_center">中间区域</string>
+    <string name="phrases">常用语</string>
+    <string name="add_phrases">增加常用语</string>
+    <string name="add_phrases_input_hint">输入常用内容</string>
+    <string name="add_phrases_quick_code_label">快捷码</string>
+    <!-- 常用语快捷码上屏（默认关闭） -->
+    <string name="phrase_quick_code_candidate">快捷码上屏常用语</string>
+    <string name="phrase_quick_code_candidate_summary">输入常用语的拼音首字母快捷码（如 wddh）时，把该常用语作为第一候选；默认关闭，关闭时常用语只在「常用语」面板里上屏</string>
+
+    <!-- 用户词库 -->
+    <string name="user_dict">用户词库</string>
+    <string name="user_dict_manage">管理用户词库</string>
+    <string name="user_dict_enable">使用用户词库</string>
+    <string name="user_dict_enable_summary">自定义的词参与候选，输入编码后排在候选最前</string>
+    <string name="user_dict_auto_learn">自动学习纠正的词</string>
+    <string name="user_dict_auto_learn_summary">输入时选择了非首位的候选，自动记入词库</string>
+    <string name="user_dict_search_hint">搜索词语或编码</string>
+    <string name="user_dict_filter_all">全部</string>
+    <string name="user_dict_filter_manual">手动</string>
+    <string name="user_dict_filter_learned">学习</string>
+    <string name="user_dict_empty">还没有自定义的词</string>
+    <string name="user_dict_no_match">没有匹配的词条</string>
+    <string name="user_dict_add">新增词条</string>
+    <string name="user_dict_edit">编辑词条</string>
+    <string name="user_dict_delete">删除</string>
+    <string name="user_dict_save">保存</string>
+    <string name="user_dict_word">词语</string>
+    <string name="user_dict_code">编码</string>
+    <string name="user_dict_weight">权重</string>
+    <string name="user_dict_weight_tips">权重越大越靠前，默认 0</string>
+    <string name="user_dict_code_tips">字母或数字，拼音首字母自动生成；输入该词的任意拼音写法（全拼 / 简拼 / 首字母）都能命中</string>
+    <string name="user_dict_import_export">用户词库导入、导出</string>
+    <string name="user_dict_clear_learned">清空自动学习的词</string>
+    <string name="user_dict_clear_all">清空全部词条</string>
+    <string name="user_dict_count">%1$d 条</string>
+    <string name="user_dict_page_of">第 %1$d / %2$d 页</string>
+    <string name="user_dict_prev_page">上一页</string>
+    <string name="user_dict_next_page">下一页</string>
+    <string name="user_dict_more_actions">更多操作</string>
+    <string name="user_dict_source_manual">手动</string>
+    <string name="user_dict_source_learned">学习</string>
+    <string name="user_dict_item_summary">%1$s · %2$d 次 · 权重 %3$d</string>
+    <string name="user_dict_word_empty">词语不能为空</string>
+    <string name="user_dict_code_invalid">编码只能包含字母和数字，长度 1-24</string>
+    <string name="user_dict_duplicate">该词语 + 编码已存在</string>
+    <string name="user_dict_delete_confirm">确定删除「%1$s」吗？</string>
+    <string name="user_dict_clear_learned_confirm">将删除全部自动学习的词条，手动添加的不受影响。继续吗？</string>
+    <string name="user_dict_clear_all_confirm">将删除全部词条，且不可恢复。继续吗？</string>
+    <string name="keyboard">键盘</string>
+    <string name="keyboard_feedback">按键反馈</string>
+    <string name="clipboard_suggestion_timeout">剪贴板提示超时</string>
+    <string name="source_code">源代码</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="privacy_policy_sure">同意</string>
+    <string name="privacy_policy_cancel">拒绝</string>
+    <string name="license">开放许可</string>
+    <string name="github_repo">GitHub 仓库</string>
+    <string name="reset">重置</string>
+    <string name="theme">主题</string>
+
+    <string name="sidebar_symbol_pinyin">拼音侧边栏</string>
+    <string name="sidebar_symbol_number">数字侧边栏</string>
+    <string name="more">更多</string>
+    <string name="add">新增</string>
+    <string name="clipboard_suggestion">显示剪贴板提示</string>
+    <!--剪贴板建议候选上方的气泡：提示这条候选来自刚刚复制的内容-->
+    <string name="clipboard_suggestion_hint">来自剪贴板：</string>
+    <string name="system_default">系统默认</string>
+    <string name="num_50">50条</string>
+    <string name="num_500">500条</string>
+    <string name="default_">默认</string>
+    <string name="keyboard_one_handed_mod">单手模式</string>
+    <string name="keyboard_one_handed_mod_left">左手模式</string>
+    <string name="keyboard_one_handed_mod_right">右手模式</string>
+    <string name="whether_reset_switch_preference">是否要将此设置重置为默认值？</string>
+    <string name="button_sound_volume">按键音量</string>
+
+    <string name="enable_ime">启用输入法</string>
+    <string name="enable_ime_hint">在“语言和输入法设置”中启用&lt;b>%1$s&lt;/b></string>
+    <string name="select_ime">选择输入法</string>
+    <string name="select_ime_hint">选择&lt;b>%1$s&lt;/b>作为默认输入法</string>
+    <string name="next">下一步</string>
+    <string name="prev">上一步</string>
+    <string name="done">完成</string>
+    <string name="setup_keyboard">请完成键盘设置</string>
+    <string name="setup_channel">设置向导</string>
+    <string name="number_500_ms">500毫秒</string>
+    <string name="number_400_ms">400毫秒</string>
+
+    <string name="new_theme">新增主题</string>
+
+    <string name="follow_system_day_night_theme">跟随系统夜间模式</string>
+    <string name="follow_system_day_night_theme_summary">覆盖手动主题选择</string>
+    <string name="light_mode_theme">亮色模式主题</string>
+    <string name="dark_mode_theme">暗色模式主题</string>
+    <string name="key_radius">按键圆角半径</string>
+    <string name="key_border">启用按键边框</string>
+    <string name="brightness">亮度</string>
+    <string name="keyboard_key_margin">按键间距</string>
+    <string name="key_horizontal_margin">按键横向间距</string>
+    <string name="key_vertical_margin">按键纵向间距</string>
+    <string name="configure">配置</string>
+    <string name="choose_image">选择图片…</string>
+    <string name="dark_keys">暗色按键</string>
+    <string name="recrop_image">重新裁剪图片</string>
+    <string name="duplicate_builtin_theme">复制内置主题…</string>
+    <string name="theme_message_follow_system_day_night_mode_enabled">“跟随系统夜间模式”已启用，不能手动更换主题。</string>
+    <string name="disable_it">禁用跟随系统</string>
+
+    <string name="edit_theme">编辑主题</string>
+    <string name="loading">加载中</string>
+    <string name="please_wait">请稍候…</string>
+
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="delete_theme">删除主题</string>
+    <string name="delete_theme_msg">确定要删除主题“%1$s”吗？</string>
+
+    <string name="keyboard_name_t9">中文9键</string>
+    <string name="keyboard_name_t14">中文14键</string>
+    <string name="keyboard_name_cn26">中文26键</string>
+    <string name="keyboard_name_hand">手写输入</string>
+    <string name="keyboard_name_stroke">笔画键盘</string>
+    <string name="double_pinyin_schema_mode">双拼方案</string>
+    <string name="double_pinyin_flypy_plus">小鹤双拼</string>
+    <string name="double_pinyin_natural">自然码双拼</string>
+    <string name="double_pinyin_abc">智能ABC</string>
+    <string name="double_pinyin_mspy">微软双拼</string>
+    <string name="double_pinyin_sougou">搜狗双拼</string>
+    <string name="double_pinyin_ziguang">紫光双拼</string>
+
+    <string name="keyboard_iv_menu_close">关闭键盘</string>
+    <string name="keyboard_iv_menu_close_panel">关闭面板</string>
+    <string name="space_swipe_move_cursor">滑动空格键移动光标</string>
+    <string name="swipe_move_cursor_speed">触发移动光标所需距离</string>
+    <string name="keyboard_menu_float">悬浮键盘</string>
+
+    <string name="emoticons">颜文字</string>
+
+    <string name="skb_prefix_tips">点击侧边栏即上屏，仅字母/符号，建议 1-2 个字符</string>
+    <string name="setting_ime_prefixs_summary">拼音与数字键盘的快捷符号</string>
+    <string name="dialog_tips_title">提示</string>
+    <string name="app_build_timeout_30">距离该版本已超30天，为保证体验，建议下载最新版本。</string>
+    <string name="app_build_timeout_60">距离该版本已超60天，为保证体验，您需下载最新版本。</string>
+    <string name="go_download_github">Github下载</string>
+    <string name="go_download_gitee">Gitee下载</string>
+    <string name="go_download_appstore">应用商店</string>
+
+    <string name="keyboard_symbol_slide_up_mod">上划输入灵敏度</string>
+    <string name="keyboard_symbol_slide_up_short">易触发</string>
+    <string name="keyboard_symbol_slide_up_medium">标准</string>
+    <string name="keyboard_symbol_slide_up_long">难触发</string>
+
+    <string name="ime_hide_icon">隐藏应用图标</string>
+    <string name="ime_hide_icon_tips">启动器不显示图标，部分机型无效</string>
+
+    <string name="half_width_symbols_tips">区分半角符号提示</string>
+    <string name="half_width_symbols_tips_all">全部</string>
+    <string name="half_width_symbols_tips_only_used">仅常用</string>
+    <string name="half_width_symbols_tips_none">不显示</string>
+
+    <string name="crop_confirm">裁剪</string>
+    <string name="crop_rotate">旋转</string>
+    <string name="crop_load_failed">无法读取图片</string>
+    <string name="crop_save_failed">保存裁剪结果失败</string>
+    <string name="crop_source_missing">图片不存在，请重新选择</string>
+
+    <string name="x_recycler_data_empty">暂时没有数据</string>
+    <string name="x_recycler_more_not">没有更多数据啦</string>
+    <string name="x_recycler_click_load_more">点击加载更多</string>
+    <string name="x_recycler_load_error">加载出错啦，请稍后重试</string>
+    <string name="x_recycler_load_more_message">正在加载更多数据，请稍后</string>
+    <string name="lock_view">锁定键盘</string>
+    <string name="menu_text_edit">文本编辑</string>
+    <string name="export_user_data">导出用户数据</string>
+    <string name="import_user_data">导入用户数据</string>
+    <string name="app_log">日志</string>
+    <string name="export_crash_log">导出崩溃日志</string>
+    <string name="export_crash_log_summary">打包崩溃记录为 zip，便于反馈问题</string>
+    <string name="exception_user_data_filename">文件的拓展名不是备份数据</string>
+    <string name="exception_user_data_metadata">找不到用户数据的元数据</string>
+    <string name="user_data_imported">已导入数据，请重启</string>
+    <string name="confirm_import_user_data">导入用户数据会覆盖本地设置与输入历史，并且在重启应用后才能生效。继续吗？</string>
+
+    <!-- 数据备份与恢复 -->
+    <string name="backup_and_restore">备份与恢复</string>
+    <string name="backup_and_restore_summary">按需导出/恢复用户词典、剪贴板、设置项等</string>
+    <string name="backup_section_content">导出内容</string>
+    <string name="backup_advanced_section">高级选项</string>
+    <string name="backup_export_hint">勾选要导出或恢复的内容；默认只带用户词典与剪贴板历史</string>
+    <string name="backup_category_user_dict">用户词典</string>
+    <string name="backup_category_learned">自动学习词</string>
+    <string name="backup_category_clipboard">剪贴板历史</string>
+    <string name="backup_category_phrase">常用语</string>
+    <string name="backup_category_symbols">侧边符号与工具栏</string>
+    <string name="backup_category_settings">设置项</string>
+    <string name="backup_category_theme">自定义主题</string>
+    <string name="backup_category_rime_user">Rime 自学习词库</string>
+    <string name="backup_category_rime_user_summary">引擎的 userdb 与自定义补丁；恢复后需要重启应用</string>
+    <string name="backup_count_items">%1$d 条</string>
+    <string name="backup_symbols_summary">侧边 %1$d 个 · 常用符号 %2$d 个</string>
+    <string name="backup_settings_summary">已选 %1$d 组设置</string>
+    <string name="backup_settings_empty">当前没有可备份的设置项</string>
+    <string name="backup_select_all">全选</string>
+    <string name="backup_deselect_all">取消全选</string>
+    <string name="backup_export">导出</string>
+    <string name="backup_import">导入</string>
+    <string name="backup_export_done">已导出</string>
+    <string name="backup_export_failed">导出失败</string>
+    <string name="backup_import_unreadable">无法读取备份包</string>
+    <string name="backup_import_title">选择要恢复的内容</string>
+    <string name="backup_import_source_hint">以下是备份包中检测到的数据</string>
+    <string name="backup_import_empty">这个备份包里没有可恢复的数据</string>
+    <string name="backup_import_mode">冲突处理</string>
+    <string name="backup_import_mode_overwrite">覆盖</string>
+    <string name="backup_import_mode_merge">合并</string>
+    <string name="backup_import_confirm">恢复</string>
+    <string name="backup_import_done">已恢复 %1$d 项数据</string>
+    <string name="backup_import_failed">恢复失败：%1$s</string>
+    <string name="backup_working">正在处理</string>
+    <string name="backup_working_hint">请勿退出应用</string>
+    <string name="backup_restart_hint">设置项或 Rime 词库需要重启应用后才会完全生效。</string>
+    <string name="backup_restart_now">立即重启</string>
+    <string name="backup_restart_later">稍后</string>
+    <string name="backup_error_newer_format">备份包来自更新版本的应用，无法恢复</string>
+    <string name="backup_auto_section">自动备份</string>
+    <string name="backup_auto_enable">自动备份</string>
+    <string name="backup_auto_enable_summary">定期把用户词典与剪贴板历史备份到指定目录</string>
+    <string name="backup_auto_interval">备份周期</string>
+    <string name="backup_auto_dir">备份位置</string>
+    <string name="backup_auto_dir_unset">未选择</string>
+    <string name="backup_auto_last_time">上次备份</string>
+    <string name="backup_auto_never">从未备份</string>
+    <string name="backup_auto_now">立即备份</string>
+    <string name="backup_interval_daily">每天</string>
+    <string name="backup_interval_3days">每 3 天</string>
+    <string name="backup_interval_weekly">每周</string>
+    <string name="backup_interval_monthly">每月</string>
+
+    <string name="restart_channel">应用重启</string>
+    <string name="restart_notify_msg">应用已被重启，点击此处打开</string>
+
+    <string name="keyboard_style_mod">键盘风格</string>
+    <string name="keyboard_style_mod_whale">默认</string>
+    <string name="keyboard_style_mod_google">谷歌</string>
+
+    <string name="show_virtual_keyboard_with_external">物理键盘显示软键盘（插拔键盘生效）</string>
+
+    <!-- 16KB 页设备上手写引擎不可用时的降级提示 -->
+    <string name="handwriting_unavailable_title">当前设备不支持手写输入</string>
+    <string name="handwriting_unavailable_summary">手写引擎为 4KB 页对齐的本地库，在 16KB 内存页设备上无法加载，系统已自动禁用手写入口。其余输入方式不受影响。</string>
+
+    <!-- Compose 设置页 -->
+    <string name="edit">编辑</string>
+    <string name="custom_theme">自定义</string>
+    <string name="skb_prefix_add">新增</string>
+    <string name="skb_prefix_empty">还没有侧边栏符号</string>
+
+    <!-- 设置首页分组 -->
+    <string name="settings_section_theme">主题外观</string>
+    <string name="settings_section_efficiency">效率</string>
+
+    <!-- 语音输入占位 -->
+    <string name="voice_unavailable_summary">语音输入还在开发中，敬请期待</string>
+
+    <!-- 设置页试输入悬浮球 -->
+    <string name="test_input_title">试输入</string>
+    <string name="test_input_hint">在此试用修改后的设置，输入内容不会被保存</string>
+    <string name="test_input_clear">清空</string>
+    <string name="test_input_enable_ime_title">还未启用小鲸鱼输入法</string>
+    <string name="test_input_enable_ime_summary">先在系统设置中启用并切换到小鲸鱼输入法，再回来试用</string>
+    <string name="test_input_enable_ime_action">去启用</string>
+
+    <!-- 设置页重构（卡片式 / 搜索 / 内联控件） -->
+    <string name="settings">设置</string>
+    <string name="settings_search_hint">搜索设置项</string>
+    <string name="settings_search_title">搜索设置</string>
+    <string name="settings_search_empty">没有找到匹配的设置项</string>
+    <string name="settings_search_prompt">试试搜索「字号」「模糊音」「剪贴板」，也可以输入拼音首字母</string>
+    <string name="settings_advanced_options">高级选项</string>
+    <string name="settings_quick_toggle">快捷开关</string>
+    <string name="settings_reset_page">恢复默认</string>
+    <string name="settings_reset_page_confirm">本页所有设置项都会恢复为默认值，确定继续吗？</string>
+    <string name="settings_reset_page_done">已恢复本页默认值</string>
+    <string name="settings_quick_audio">按键音</string>
+    <string name="settings_quick_vibrate">振动</string>
+    <string name="settings_overview">当前状态</string>
+    <string name="settings_overview_theme">主题</string>
+    <string name="settings_overview_user_dict">用户词库</string>
+    <string name="settings_overview_clipboard">剪贴板</string>
+    <string name="settings_count_unit">条</string>
+
+    <!-- 设置界面自身外观 -->
+    <string name="settings_appearance">界面显示</string>
+    <string name="settings_appearance_mode">外观模式</string>
+    <string name="settings_appearance_follow_system">跟随系统</string>
+    <string name="settings_appearance_light">浅色</string>
+    <string name="settings_appearance_dark">深色</string>
+    <string name="settings_dynamic_color">动态取色</string>
+    <string name="settings_dynamic_color_summary">跟随壁纸配色（Material You，适用于 Android 12 及以上）</string>
+
+    <!-- 设置首页：分组 + 入口摘要（入口标题统一取 SettingsDest.title，别在这里再定义一份） -->
+    <string name="settings_section_setup">开始使用</string>
+    <string name="settings_section_input">输入</string>
+    <string name="settings_section_appearance">键盘与外观</string>
+    <string name="settings_section_data">剪贴板与数据</string>
+    <string name="settings_section_other">其他</string>
+    <string name="settings_entry_input_summary">拼音 / 双拼 / 模糊音 / 纠错 / 英文 / 符号与表情</string>
+    <string name="settings_entry_dict_summary">自定义词条 / 自动学习 / 导入导出</string>
+    <string name="settings_entry_keyboard_summary">高度 / 字号 / 间距与圆角 / 单手 / 悬浮 / 全面屏</string>
+    <string name="settings_entry_theme_summary">主题 / 配色 / 自定义背景</string>
+    <!-- 页标题：主题页里除主题外还有键盘外观设置，不能只叫「主题」 -->
+    <string name="theme_and_appearance">主题与外观</string>
+    <string name="settings_entry_clipboard_summary">历史记录 / 条数上限 / 粘贴建议 / 布局</string>
+    <string name="settings_entry_backup_summary">用户词库 / 剪贴板 / 常用语</string>
+    <string name="settings_entry_feedback_summary">按键音 / 触感强度 / 跟随系统</string>
+    <string name="settings_entry_advanced">高级设置</string>
+    <string name="settings_entry_advanced_summary">隐藏桌面图标 / 导出崩溃日志</string>
+    <string name="settings_entry_about_summary">版本 / 开源许可 / 隐私政策</string>
+    <string name="settings_sound_level">音量档位</string>
+    <string name="settings_vibration_level">强度档位</string>
+    <string name="settings_level_unit">档</string>
+
+    <!-- 按键反馈：跟随系统 / 自定义 -->
+    <string name="feedback_mode">反馈方式</string>
+    <string name="feedback_mode_follow_system">跟随系统</string>
+    <string name="feedback_mode_custom">自定义</string>
+    <string name="feedback_mode_follow_system_summary">由系统的触感反馈 / 触摸提示音开关与强度决定，系统的关闭时没有反馈</string>
+</resources>

@@ -1,0 +1,61 @@
+# Rime schema（自 libwhaleime.so 1.11.2 内嵌字符串还原）
+#
+# 与内嵌原版的差异（均为本地需求，不是还原误差）：
+# 1. speller/translator 段的大小写说明见下方注释；
+# 2. filters 补 simplifier@emoji：原版英文方案没有任何表情联想，
+#    英文键盘下 love / thanks / vs 这类词拿不到 emoji 孪生候选。
+#    词典与中文方案共用 opencc/emoji.txt，开关同样是 emoji option
+#    （由 InputDispatcher.nativeUpdateImeOption 在每次切换方案后写入）。
+emoji:
+  inherit_comment: false
+  opencc_config: emoji.json
+  option_name: emoji
+engine:
+  filters:
+    - "simplifier@emoji"
+    - uniquifier
+  processors:
+    - ascii_composer
+    - key_binder
+    - speller
+    - recognizer
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - matcher
+    - ascii_segmentor
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - table_translator
+    - punct_translator
+    - echo_translator
+punctuator:
+  symbols:
+    "/": ["@", "＃", "＊", "＋", "……", "〜", "（", "）", "、", "/"]
+schema:
+  description: |
+    英语输入
+  name: "英语输入"
+  schema_id: english
+speller:
+  # 大小写不敏感**不在这里做**：speller.algebra（xlit 之类）只作用于拼音音节表长出的
+  # 拼写，码表方案（table_translator）的 prism 拼写就是 code 原文，加 xlit 实测无效
+  # （english.prism.bin 的 spellings 数 = 唯一 code 数，没有派生）。
+  # 实际做法：scripts/precompile-dict.ps1 生成 english 词典源时，给每条 code 含大写的条目补一条
+  # 同文本的小写码条目（GPU 额外一条 gpu），小写输入因此直接命中，候选文本仍是词库原文。
+  alphabet: zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA
+  delimiter: " '"
+translator:
+  always_show_comments: true
+  comment_format:
+    - "xform/ //"
+  dictionary: english
+  preedit_format:
+    - "xform/ //"
+  spelling_hints: 100
+
+menu:
+  page_size: 5

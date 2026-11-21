@@ -1,0 +1,87 @@
+# Rime schema（自 libwhaleime.so 1.11.2 内嵌字符串还原）
+cn_en:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: 0.5
+  user_dict: "en_dicts/cn_en"
+emoji:
+  inherit_comment: false
+  opencc_config: emoji.json
+  option_name: emoji
+engine:
+  filters:
+    - "simplifier@emoji"
+    - "simplifier@traditionalize"
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - speller
+    - punctuator
+    - selector
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - echo_translator
+    - script_translator
+    - "table_translator@english"
+    - "table_translator@cn_en"
+english:
+  dictionary: english
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: 1.1
+punctuator:
+  symbols:
+    "/": ["@", "＃", "＊", "＋", "……", "〜", "（", "）", "、", "/"]
+recognizer:
+  patterns:
+    punct: "^/([0-9]|10|[A-Za-z]*?)$"
+schema:
+  dependencies:
+    - english
+  name: "全键拼音"
+  schema_id: pinyin
+speller:
+  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`/"
+  delimiter: "''"
+  algebra:
+    # 超级简拼（rime-ice 同款）：任意音节可用首字母缩写，zh/ch/sh 视为整体。
+    # 没有这两条，prism 里只有全拼拼写，"sm/fq/zg" 这类首字母输入只能靠
+    # 纠错 BFS 插字母硬凑（s→shen 要插 3 个字母，超出容差 2），
+    # "什么/放弃/中国" 整类候选消失（2026-10-24 修复）。
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+grammar:
+  # 八股文语法模型（librime-octagram）：整句合成按 n-gram 打分，替代逐词权重求和，
+  # 根治"垃圾整句压过真词"。模型在共享目录 zh-hans.gram（全量 68MB，未裁剪：
+  # darts double-array 走 mmap 加载，体积不影响加载速度，全量保质量；
+  # 由 docs/prototype/build-gram.ps1 预编译）
+  language: zh-hans
+traditionalize:
+  opencc_config: s2t.json
+  option_name: traditionalization
+translator:
+  always_show_comments: true
+  dictionary: pinyin
+  # 上下文敏感排序（librime ContextualTranslation）：已上屏的前文（commit_history）
+  # 送入 zh-hans.gram 一起打分，连续输入时下一个词的排序更准。
+  # 依赖顶部的 grammar: zh-hans；grammar 缺失时本开关静默无效。
+  contextual_suggestions: true
+  initial_quality: 1.2
+  spelling_hints: 100
+  # 引擎原生拼写纠错（邻键容错进音节图，见 docs/pinyin-correction-refactor-plan.md）：
+  # 候选自动排在精确匹配之后、单次最多 4 条、参与正常选词与 userdb 学习。
+  # Kotlin 侧开关通过 user 目录 pinyin.custom.yaml 的 patch 覆盖本值。
+  enable_correction: true
+
+menu:
+  page_size: 5

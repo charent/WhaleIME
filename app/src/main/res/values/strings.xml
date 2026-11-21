@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!--
+        应用名由宿主自己提供：库模块不再用 resValue 覆盖宿主资源（那是 library 契约的违反，
+        且 debug/release 两个变体只靠 resValue 区分，宿主完全不可见）。
+        manifest 的 android:label、res/xml/method.xml 的 android:label 都取这里。
+    -->
+    <string name="app_name">小鲸鱼输入法</string>
+</resources>

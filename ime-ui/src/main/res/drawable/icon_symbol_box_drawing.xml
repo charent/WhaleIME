@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="88dp"
+    android:height="88dp"
+    android:viewportWidth="88"
+    android:viewportHeight="88">
+    <!--制表符/框线分类：一张带十字分隔的表格-->
+    <path
+        android:pathData="M12,12h64v64h-64zM16,16v56h56v-56z"
+        android:fillColor="#000000"
+        android:fillType="evenOdd" />
+    <path
+        android:pathData="M42,12h4v64h-4z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M12,42h64v4h-64z"
+        android:fillColor="#000000" />
+</vector>

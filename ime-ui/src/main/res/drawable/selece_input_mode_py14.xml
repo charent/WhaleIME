@@ -1,0 +1,10 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="98"
+    android:viewportHeight="98">
+  <!-- 14 键：三行字母（5/5/4）+ 底行功能键，用纯色块示意键位密度 -->
+  <path
+      android:fillColor="#000000"
+      android:pathData="M20,20h10v10h-10z M32,20h10v10h-10z M44,20h10v10h-10z M56,20h10v10h-10z M68,20h10v10h-10z M20,34h10v10h-10z M32,34h10v10h-10z M44,34h10v10h-10z M56,34h10v10h-10z M68,34h10v10h-10z M24,48h10v10h-10z M37,48h10v10h-10z M50,48h10v10h-10z M63,48h10v10h-10z M20,62h34v10h-34z M58,62h8v10h-8z M70,62h8v10h-8z" />
+</vector>

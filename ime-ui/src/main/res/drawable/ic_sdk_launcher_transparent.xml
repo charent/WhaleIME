@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- Notification small icon: monochrome whale silhouette only (no background) -->
+    <path
+        android:pathData="M28,66C34,46 52,36 68,40C82,43.5 91,54 92,65C92.6,71 89,74 83,72.5C74,70.3 60,70 50,74C42,77 30,78 28,72Z"
+        android:fillColor="#FFFFFF"/>
+    <path
+        android:pathData="M88,52C96,46 103,46 106,51C101,52 97,55 95,59Z"
+        android:fillColor="#FFFFFF"/>
+</vector>

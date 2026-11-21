@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="skb_elevation_color">#bfbfbf</color>
+    <color name="red_400">#EF5350</color>
+    <color name="color_gray">#B4B4B4</color>
+
+    <!--
+      品牌主色：取自应用图标渐变（res/drawable/app_icon.xml，青 #38E1FF → 蓝 #2E5BFF）。
+      这里取蓝端作为窗口级品牌色；界面内的完整配色见 compose/settings/SettingsColorScheme.kt。
+    -->
+    <color name="brand_primary">#FF2E5BFF</color>
+    <color name="brand_primary_dark">#FF1B45D9</color>
+
+    <color name="x_recycler_color_text_gray">#FF777777</color>
+    <color name="x_recycler_color_loading_color1">#55777777</color>
+    <color name="x_recycler_color_loading_color2">#B1777777</color>
+    <color name="x_recycler_color_loading_color3">#FF777777</color>
+</resources>

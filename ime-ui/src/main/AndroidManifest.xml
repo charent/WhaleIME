@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :ime-ui 的组件声明。
+
+    所有 android:name 一律写全限定名：manifest 里的相对名（.xxx）是按「该模块的
+    namespace」拼接的，拆模块后各模块 namespace 不同，相对写法会指向不存在的类——
+    编译期不报错，安装后点击才 ClassNotFoundException。
+
+    这里不声明 MAIN/LAUNCHER（AGP 会对 library 的 launcher intent-filter 报 lint 错误）：
+    LauncherActivity 类留本模块，启动入口的 <activity> 声明在 app 的 manifest 里。
+    ImeService 同理，声明与 @xml/method 都留在 app。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 自动备份任务的周期性调度需要在重启后保留 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.GET_CONTENT" />
+            <category android:name="android.intent.category.OPENABLE" />
+            <data android:mimeType="*/*" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
+    <application android:supportsRtl="true">
+        <activity
+            android:name="com.whale.ime.ui.activity.SettingsActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.whale.ime.ui.setup.SetupActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.whale.ime.ui.theme.CustomThemeActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:label="@string/edit_theme" />
+        <activity
+            android:name="com.whale.ime.compose.crop.CropActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/Theme.AppTheme" />
+
+        <!-- 自动备份（周期任务）：无界面，纯本地写 SAF 目录 -->
+        <service
+            android:name="com.whale.ime.ui.backup.AutoBackupJobService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+    </application>
+
+</manifest>

@@ -1,0 +1,67 @@
+// :ime-core —— 运行时 + 输入引擎（无 Compose、无 Activity）
+//
+// 内容：偏好/数据库/主题/键盘模型、InputDispatcher/DictDecoder、Rime/HW/Custom 三个引擎、
+// JNI 绑定、手写入口。vendored 第三方源码（pinyin4j / 表达式求值）在 :ime-vendor。
+//
+// 依赖方向只允许向下：app → ime-ui → ime-core → ime-vendor。本模块不得依赖 :ime-ui / :app，
+// 也不得出现 androidx.compose.*（状态用 StateFlow 暴露给 UI）与 Activity/View 子类
+// （Toast 用 android.widget.Toast、ErrorDialog 用 AlertDialog，符合）。
+
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp'
+    id 'kotlin-parcelize'
+    id 'kotlinx-serialization'
+}
+
+android {
+    compileSdk whaleCompileSdk
+    namespace 'com.whale.ime.core'
+
+    defaultConfig {
+        minSdk whaleMinSdk
+    }
+
+    buildFeatures {
+        // LogUtil 用 BuildConfig.DEBUG；AGP 8 默认关闭，需显式开启
+        buildConfig = true
+        // 明确关闭：core 内不应出现 Compose
+        compose = false
+    }
+
+    compileOptions {
+        sourceCompatibility whaleJavaVersion
+        targetCompatibility whaleJavaVersion
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(whaleJvmTarget)
+        }
+    }
+}
+
+dependencies {
+    // vendored 第三方源码（pinyin4j / 表达式求值）。类型不出现在 core 的公开 API 上，
+    // 所以用 implementation；:ime-ui 自己要直接调用 PinyinHelper，那边单独声明。
+    implementation project(':ime-vendor')
+
+    // SharedPreferences.edit { } / AudioManager.playSoundEffect 等扩展都在 core-ktx 里；
+    // 之前是从 Compose/activity 依赖上传递来的，拆模块后必须显式声明。
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.20"
+
+    // 下面这些库的类型出现在 core 的公开 API 上（StateFlow、EmojiCompat、
+    // DataBaseKT : RoomDatabase），必须用 api 暴露，否则消费者访问这些公开成员时
+    // 会报 "Cannot access 'RoomDatabase' which is a supertype of ..."。
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
+    api 'androidx.emoji2:emoji2:1.5.0'
+    api "androidx.room:room-runtime:2.6.1"
+    implementation "androidx.room:room-ktx:2.6.1"
+    implementation 'androidx.exifinterface:exifinterface:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3'
+
+    // Room / KSP 必须在本模块显式声明（KSP 不传递）
+    ksp "androidx.room:room-compiler:2.6.1"
+}

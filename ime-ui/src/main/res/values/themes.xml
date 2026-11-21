@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      应用唯一主题：所有界面都是 Compose（setContent + enableEdgeToEdge），
+      这里只负责窗口级别的底色与系统栏。
+    -->
+    <style name="Theme.AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/brand_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+</resources>

@@ -1,0 +1,293 @@
+# Rime schema（自 libwhaleime.so 1.11.2 内嵌字符串还原）
+emoji:
+  inherit_comment: false
+  opencc_config: emoji.json
+  option_name: emoji
+engine:
+  filters:
+    - "simplifier@emoji"
+    - "simplifier@traditionalize"
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - speller
+    - punctuator
+    - selector
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - echo_translator
+    - script_translator
+punctuator:
+  symbols:
+    "/": ["@", "＃", "＊", "＋", "……", "〜", "（", "）", "、", "/"]
+recognizer:
+  patterns:
+    punct: "^/([0-9]|10|[A-Za-z]*?)$"
+schema:
+  name: "九键拼音"
+  schema_id: t9_pinyin
+speller:
+  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`/"
+  delimiter: "''"
+  algebra:
+    # ==== GENERATED: 九键键码映射（gen-t9-algebra.py 生成，勿手改）====
+    # 保留全拼、另派生键码；候选栏点选具体读音后 replaceKey 成小写拼音
+    # 仍能查到音节图。键码与 T9PinYinUtils.t9KeyMap 一一对应。
+    - derive/^a$/A/
+    - derive/^(ba|ca)$/AA/
+    - derive/^(bai|cai)$/AAG/
+    - derive/^(ban|bao|can|cao)$/AAM/
+    - derive/^(bang|cang)$/AAMG/
+    - derive/^ce$/AD/
+    - derive/^(bei|cei)$/ADG/
+    - derive/^(ben|cen)$/ADM/
+    - derive/^(beng|ceng)$/ADMG/
+    - derive/^(ai|bi|ci)$/AG/
+    - derive/^cha$/AGA/
+    - derive/^chai$/AGAG/
+    - derive/^(bian|biao|chan|chao)$/AGAM/
+    - derive/^(biang|chang)$/AGAMG/
+    - derive/^(bie|che)$/AGD/
+    - derive/^chen$/AGDM/
+    - derive/^cheng$/AGDMG/
+    - derive/^chi$/AGG/
+    - derive/^bin$/AGM/
+    - derive/^bing$/AGMG/
+    - derive/^chong$/AGMMG/
+    - derive/^chou$/AGMT/
+    - derive/^chu$/AGT/
+    - derive/^chua$/AGTA/
+    - derive/^chuai$/AGTAG/
+    - derive/^chuan$/AGTAM/
+    - derive/^chuang$/AGTAMG/
+    - derive/^chui$/AGTG/
+    - derive/^(chun|chuo)$/AGTM/
+    - derive/^(an|ao|bo)$/AM/
+    - derive/^ang$/AMG/
+    - derive/^cong$/AMMG/
+    - derive/^cou$/AMT/
+    - derive/^(bu|cu)$/AT/
+    - derive/^cuan$/ATAM/
+    - derive/^cui$/ATG/
+    - derive/^(cun|cuo)$/ATM/
+    - derive/^e$/D/
+    - derive/^(da|fa)$/DA/
+    - derive/^dai$/DAG/
+    - derive/^(dan|dao|fan)$/DAM/
+    - derive/^(dang|fang)$/DAMG/
+    - derive/^de$/DD/
+    - derive/^(dei|fei)$/DDG/
+    - derive/^(den|fen)$/DDM/
+    - derive/^(deng|feng)$/DDMG/
+    - derive/^(di|ei)$/DG/
+    - derive/^dia$/DGA/
+    - derive/^(dian|diao|fiao)$/DGAM/
+    - derive/^die$/DGD/
+    - derive/^ding$/DGMG/
+    - derive/^diu$/DGT/
+    - derive/^(en|fo)$/DM/
+    - derive/^eng$/DMG/
+    - derive/^dong$/DMMG/
+    - derive/^(dou|fou)$/DMT/
+    - derive/^er$/DP/
+    - derive/^(du|fu)$/DT/
+    - derive/^duan$/DTAM/
+    - derive/^dui$/DTG/
+    - derive/^(dun|duo)$/DTM/
+    - derive/^(ga|ha)$/GA/
+    - derive/^(gai|hai)$/GAG/
+    - derive/^(gan|gao|han|hao)$/GAM/
+    - derive/^(gang|hang)$/GAMG/
+    - derive/^(ge|he)$/GD/
+    - derive/^(gei|hei)$/GDG/
+    - derive/^(gen|hen)$/GDM/
+    - derive/^(geng|heng)$/GDMG/
+    - derive/^(gong|hong)$/GMMG/
+    - derive/^(gou|hou)$/GMT/
+    - derive/^(gu|hu)$/GT/
+    - derive/^(gua|hua)$/GTA/
+    - derive/^(guai|huai)$/GTAG/
+    - derive/^(guan|huan)$/GTAM/
+    - derive/^(guang|huang)$/GTAMG/
+    - derive/^(gui|hui)$/GTG/
+    - derive/^(gun|guo|hun|huo)$/GTM/
+    - derive/^(ka|la)$/JA/
+    - derive/^(kai|lai)$/JAG/
+    - derive/^(kan|kao|lan|lao)$/JAM/
+    - derive/^(kang|lang)$/JAMG/
+    - derive/^(ke|le)$/JD/
+    - derive/^(kei|lei)$/JDG/
+    - derive/^ken$/JDM/
+    - derive/^(keng|leng)$/JDMG/
+    - derive/^(ji|li)$/JG/
+    - derive/^(jia|lia)$/JGA/
+    - derive/^(jian|jiao|lian|liao)$/JGAM/
+    - derive/^(jiang|liang)$/JGAMG/
+    - derive/^(jie|lie)$/JGD/
+    - derive/^(jin|lin)$/JGM/
+    - derive/^(jing|ling)$/JGMG/
+    - derive/^jiong$/JGMMG/
+    - derive/^(jiu|liu)$/JGT/
+    - derive/^lo$/JM/
+    - derive/^(kong|long)$/JMMG/
+    - derive/^(kou|lou)$/JMT/
+    - derive/^(ju|ku|lu|lv)$/JT/
+    - derive/^kua$/JTA/
+    - derive/^kuai$/JTAG/
+    - derive/^(juan|kuan|luan)$/JTAM/
+    - derive/^kuang$/JTAMG/
+    - derive/^(jue|lve)$/JTD/
+    - derive/^kui$/JTG/
+    - derive/^(jun|kun|kuo|lun|luo)$/JTM/
+    - derive/^o$/M/
+    - derive/^(ma|na)$/MA/
+    - derive/^(mai|nai)$/MAG/
+    - derive/^(man|mao|nan|nao)$/MAM/
+    - derive/^(mang|nang)$/MAMG/
+    - derive/^(me|ne)$/MD/
+    - derive/^(mei|nei)$/MDG/
+    - derive/^(men|nen)$/MDM/
+    - derive/^(meng|neng)$/MDMG/
+    - derive/^(mi|ni)$/MG/
+    - derive/^(mian|miao|nian|niao)$/MGAM/
+    - derive/^niang$/MGAMG/
+    - derive/^(mie|nie)$/MGD/
+    - derive/^(min|nin)$/MGM/
+    - derive/^(ming|ning)$/MGMG/
+    - derive/^(miu|niu)$/MGT/
+    - derive/^mo$/MM/
+    - derive/^nong$/MMMG/
+    - derive/^(mou|nou)$/MMT/
+    - derive/^(mu|nu|nv|ou)$/MT/
+    - derive/^nuan$/MTAM/
+    - derive/^nve$/MTD/
+    - derive/^nuo$/MTM/
+    - derive/^(pa|sa)$/PA/
+    - derive/^(pai|sai)$/PAG/
+    - derive/^(pan|pao|ran|rao|san|sao)$/PAM/
+    - derive/^(pang|rang|sang)$/PAMG/
+    - derive/^(re|se)$/PD/
+    - derive/^pei$/PDG/
+    - derive/^(pen|ren|sen)$/PDM/
+    - derive/^(peng|reng|seng)$/PDMG/
+    - derive/^(pi|qi|ri|si)$/PG/
+    - derive/^(qia|sha)$/PGA/
+    - derive/^shai$/PGAG/
+    - derive/^(pian|piao|qian|qiao|shan|shao)$/PGAM/
+    - derive/^(qiang|shang)$/PGAMG/
+    - derive/^(pie|qie|she)$/PGD/
+    - derive/^shei$/PGDG/
+    - derive/^shen$/PGDM/
+    - derive/^sheng$/PGDMG/
+    - derive/^shi$/PGG/
+    - derive/^(pin|qin)$/PGM/
+    - derive/^(ping|qing)$/PGMG/
+    - derive/^qiong$/PGMMG/
+    - derive/^shou$/PGMT/
+    - derive/^(qiu|shu)$/PGT/
+    - derive/^shua$/PGTA/
+    - derive/^shuai$/PGTAG/
+    - derive/^shuan$/PGTAM/
+    - derive/^shuang$/PGTAMG/
+    - derive/^shui$/PGTG/
+    - derive/^(shun|shuo)$/PGTM/
+    - derive/^po$/PM/
+    - derive/^(rong|song)$/PMMG/
+    - derive/^(pou|rou|sou)$/PMT/
+    - derive/^(pu|qu|ru|su)$/PT/
+    - derive/^rua$/PTA/
+    - derive/^(quan|ruan|suan)$/PTAM/
+    - derive/^que$/PTD/
+    - derive/^(rui|sui)$/PTG/
+    - derive/^(qun|run|ruo|sun|suo)$/PTM/
+    - derive/^ta$/TA/
+    - derive/^tai$/TAG/
+    - derive/^(tan|tao)$/TAM/
+    - derive/^tang$/TAMG/
+    - derive/^te$/TD/
+    - derive/^tei$/TDG/
+    - derive/^teng$/TDMG/
+    - derive/^ti$/TG/
+    - derive/^(tian|tiao)$/TGAM/
+    - derive/^tie$/TGD/
+    - derive/^ting$/TGMG/
+    - derive/^tong$/TMMG/
+    - derive/^tou$/TMT/
+    - derive/^tu$/TT/
+    - derive/^tuan$/TTAM/
+    - derive/^tui$/TTG/
+    - derive/^(tun|tuo)$/TTM/
+    - derive/^(wa|ya|za)$/WA/
+    - derive/^(wai|zai)$/WAG/
+    - derive/^(wan|yan|yao|zan|zao)$/WAM/
+    - derive/^(wang|yang|zang)$/WAMG/
+    - derive/^(ye|ze)$/WD/
+    - derive/^(wei|zei)$/WDG/
+    - derive/^(wen|zen)$/WDM/
+    - derive/^(weng|zeng)$/WDMG/
+    - derive/^(xi|yi|zi)$/WG/
+    - derive/^(xia|zha)$/WGA/
+    - derive/^zhai$/WGAG/
+    - derive/^(xian|xiao|zhan|zhao)$/WGAM/
+    - derive/^(xiang|zhang)$/WGAMG/
+    - derive/^(xie|zhe)$/WGD/
+    - derive/^zhei$/WGDG/
+    - derive/^zhen$/WGDM/
+    - derive/^zheng$/WGDMG/
+    - derive/^zhi$/WGG/
+    - derive/^(xin|yin)$/WGM/
+    - derive/^(xing|ying)$/WGMG/
+    - derive/^(xiong|zhong)$/WGMMG/
+    - derive/^zhou$/WGMT/
+    - derive/^(xiu|zhu)$/WGT/
+    - derive/^zhua$/WGTA/
+    - derive/^zhuai$/WGTAG/
+    - derive/^zhuan$/WGTAM/
+    - derive/^zhuang$/WGTAMG/
+    - derive/^zhui$/WGTG/
+    - derive/^(zhun|zhuo)$/WGTM/
+    - derive/^(wo|yo)$/WM/
+    - derive/^(yong|zong)$/WMMG/
+    - derive/^(you|zou)$/WMT/
+    - derive/^(wu|xu|yu|zu)$/WT/
+    - derive/^(xuan|yuan|zuan)$/WTAM/
+    - derive/^(xue|yue)$/WTD/
+    - derive/^zui$/WTG/
+    - derive/^(xun|yun|zun|zuo)$/WTM/
+    # ==== /GENERATED ====
+    - abbrev/^([A-Z]).+$/$1/
+traditionalize:
+  opencc_config: s2t.json
+  option_name: traditionalization
+grammar:
+  # 八股文语法模型（librime-octagram），与全键方案共用共享目录的 zh-hans.gram。
+  # 九键的歧义比全拼大一个量级：同一串按键能切出完全不同的音节
+  # （943 28 426 → zhe'bu'hao 或 yi'da'tiao），覆盖长度又是满的，
+  # 没有 n-gram 时只能比较「逐词词频之和」，生僻整词（一大跳/一大条）
+  # 会压过常用的字词组合（这不好/这不合适）。接入 grammar 后整句按
+  # 语言模型打分，才和 26 键的排序质量对齐。
+  language: zh-hans
+translator:
+  always_show_comments: true
+  # 上下文敏感排序：已上屏的前文一起进 n-gram 打分（依赖上面的 grammar，
+  # 缺失时本开关静默无效）。
+  contextual_suggestions: true
+  dictionary: pinyin
+  initial_quality: 1.2
+  prism: t9_pinyin
+  spelling_hints: 100
+  # 切分先验重排（WhaleIME，2026-10-26）：句首 + 满覆盖 + 同一串按键能切出多种
+  # 音节时，先按 n-gram 分决定「哪种切分更像话」，再在同一切分内按词条权重选词。
+  # 只对九键开：按键多对一才需要它；26 键开这个会让 top1 大幅退化（实测 77.5%→30.0%）。
+  segmentation_prior: true
+
+menu:
+  page_size: 5

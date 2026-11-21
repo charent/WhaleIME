@@ -1,0 +1,40 @@
+// :ime-vendor —— vendored 第三方源码（pinyin4j、表达式求值）
+//
+// 硬边界：本模块**不得** import 任何 com.whale.ime.* 代码（com.whale.ime.vendor.* 自身除外），
+// 也不得依赖 :ime-core / :ime-ui / :app。拼音表通过 PinyinHelper.init(AssetManager) 注入，
+// 由 :ime-core 的 Launcher 在启动时提供；assets 实体仍留在 :ime-native。
+// 修改 vendored 源码时，请在对应包的 package-info 里补一条「本地改动」。
+
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk whaleCompileSdk
+    namespace 'com.whale.ime.vendor'
+
+    defaultConfig {
+        minSdk whaleMinSdk
+    }
+
+    buildFeatures {
+        // 只有 vendored 源码：不产出 BuildConfig，也不需要 Compose
+        buildConfig = false
+        compose = false
+    }
+
+    compileOptions {
+        sourceCompatibility whaleJavaVersion
+        targetCompatibility whaleJavaVersion
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(whaleJvmTarget)
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.20"
+}

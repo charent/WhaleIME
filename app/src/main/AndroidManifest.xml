@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:name="com.whale.BaseApplication"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppTheme">
+        <!--
+            桌面入口：LauncherActivity 是 SettingsActivity 的子类，类本身在 :ime-ui
+            （SettingsEffects 用 LauncherActivity::class.java 拼组件名，搬到 app 会形成
+            ime-ui → app 的反向依赖）。library 里不声明 MAIN/LAUNCHER，声明放宿主。
+        -->
+        <activity
+            android:name="com.whale.ime.ui.activity.LauncherActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 输入法服务与 @xml/method 都留在宿主：method.xml 在 app 的 res/xml 下 -->
+        <service
+            android:name="com.whale.ime.ui.service.ImeService"
+            android:exported="true"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+    </application>
+
+</manifest>

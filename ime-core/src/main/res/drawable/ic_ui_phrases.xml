@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 方案 A 细线图标：24x24 网格，1.5pt 圆角笔画；颜色由 Compose Icon(tint) 覆盖 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M8.8 4.8h8.5a2.6 2.6 0 0 1 2.6 2.6v6.5" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M5.4 8.2H13.2A2.8 2.8 0 0 1 16 11V16.8A2.8 2.8 0 0 1 13.2 19.6H5.4A2.8 2.8 0 0 1 2.6 16.8V11A2.8 2.8 0 0 1 5.4 8.2Z" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M6.2 12.4h6.2M6.2 15.6h4" />
+</vector>

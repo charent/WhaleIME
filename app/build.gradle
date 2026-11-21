@@ -1,0 +1,144 @@
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    // compileSdk / minSdk / Java 版本统一来自根 build.gradle 的 ext
+    compileSdk whaleCompileSdk
+    namespace 'com.whale'
+    defaultConfig {
+        applicationId "com.whale.inputmethod"
+        minSdk whaleMinSdk
+        targetSdk 36
+        versionCode versionCodeDate()
+        versionName versionNameDate()
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        ndk {
+            // 只打包 64 位：arm64-v8a 用于真机；x86_64 让模拟器原生加载
+            // libwhaleime.so —— 靠 ARM 转译跑 arm64 库只能证明 arm64 产物可用，
+            // 验证不到 x86_64 那一份。32 位（armeabi-v7a / x86）已移除。
+            // 注意：不要用 buildTypes.release 内的 packagingOptions 排除 x86_64，
+            // 该 DSL 在 buildType 闭包里会落到全局，把 debug 的 x86_64 一起删掉。
+            abiFilters 'arm64-v8a', 'x86_64'
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    lint {
+        // lint 结果本来就不阻断构建（abortOnError = false），
+        // 再让 assembleRelease 依赖 lintVital 只有代价没有收益：
+        // :app:lintVitalAnalyzeRelease 会卡在 lint 内部的源码树遍历
+        // （UastEnvironmentVirtualFileUtils.collectFilePaths → Files.isReadable）里
+        // 十几分钟不推进，Gradle 侧只有 Execution worker 挂在 waitForCompletion，
+        // 现象就是「R8 之后无输出、CPU 全闲」。需要检查时手动跑
+        // `gradlew :app:lintRelease`（不经 assembleRelease）。
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
+
+    androidResources {
+        // 表情字体（whalesdk assets/fonts/NotoColorEmojiCompat.ttf，约 10MB）不压缩。
+        // noCompress 是「打包到 APK」这一步的行为，必须在 application 模块声明才生效
+        // （library 模块里的同名配置不会传导到宿主打包）。不压缩后 Typeface.createFromAsset
+        // 可以 mmap，不必把 10MB 字库整个读进堆。
+        noCompress += 'ttf'
+    }
+
+    signingConfigs {
+        release {
+            def keystorePropertiesFile = rootProject.file("keystore/keystore.properties")
+            def keystoreProperties = new Properties()
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+            }
+            def keystoreFilePath = System.getenv("RELEASE_STORE_FILE") ?: keystoreProperties.getProperty('storeFile')
+            def keystorePassword = System.getenv("RELEASE_STORE_PASSWORD") ?: keystoreProperties.getProperty('storePassword')
+            def keyAliasName = System.getenv("RELEASE_KEY_ALIAS") ?: keystoreProperties.getProperty('keyAlias')
+            def keyPasswordValue = System.getenv("RELEASE_KEY_PASSWORD") ?: keystoreProperties.getProperty('keyPassword')
+            def keystoreFile = rootProject.file(keystoreFilePath)
+            if (keystoreFile.exists() && keystorePassword && keyAliasName && keyPasswordValue) {
+                storeFile keystoreFile
+                storePassword keystorePassword
+                keyAlias keyAliasName
+                keyPassword keyPasswordValue
+                v1SigningEnabled true
+                v2SigningEnabled true
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // 混淆
+            minifyEnabled true
+            shrinkResources true
+            applicationIdSuffix  ".release"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.release
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility whaleJavaVersion
+        targetCompatibility whaleJavaVersion
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(whaleJvmTarget)
+        }
+    }
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach {
+            outputFileName = "whaleIme_${versionNameDate().replace('.', '')}_${variant.buildType.name}.apk"
+        }
+    }
+}
+
+static def versionCodeDate() {
+    // versionCode 是 Int（上限 2147483647）。这里用"2026-01-01 00:00 (GMT+8) 起的
+    // 分钟数"：随打包时间严格递增、分钟粒度，每年仅增约 52.6 万，
+    // 公元 6111 年才触及上限，无任何格式溢出技巧
+    def epoch = ZonedDateTime.of(2026, 1, 1, 0, 0, 0, 0, ZoneId.of("GMT+8"))
+    def now = ZonedDateTime.now(ZoneId.of("GMT+8"))
+    return ChronoUnit.MINUTES.between(epoch, now) as Integer
+}
+
+static def versionNameDate() {
+    return new Date().format("yyMMdd.HHmm", TimeZone.getTimeZone("GMT+8"))
+}
+
+dependencies {
+    // 依赖方向：app → ime-ui → ime-core → ime-vendor（ime-ui 用 api 暴露 core，app 不必重复声明）
+    implementation project(':ime-ui')
+    // 载荷模块：只把 assets / jniLibs 送进 APK，没有任何模块编译期依赖它。
+    // 用 runtimeOnly 而不是 implementation，是为了让「这个模块不参与编译」在构建脚本里可见；
+    // 它的 assets/jniLibs 通过 runtime classpath 参与合并。
+    runtimeOnly project(':ime-native')
+
+    // 泄漏检测：必须放在 application 模块的 debug 变体。
+    // 之前写在 :whalesdk 的 debugImplementation 上，只对该库自己的 debug 变体生效，
+    // 从未进入实际调试包（库的 debugImplementation 不会被 app 继承）。
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+}

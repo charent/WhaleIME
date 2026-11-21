@@ -1,0 +1,7 @@
+// 依赖方向只允许向下：app → ime-ui → ime-core → ime-vendor
+//   :ime-native 没有编译期依赖（app 以 runtimeOnly 依赖它，只表达「这个模块必须进包」）
+include ':app'
+include ':ime-native'
+include ':ime-core'
+include ':ime-ui'
+include ':ime-vendor'

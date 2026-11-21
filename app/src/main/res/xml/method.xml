@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--系统输入法设置定义字段-->
+<!--
+    系统设置「屏幕键盘」里输入法名称下方的小标题由 subtype 生成：
+      InputMethodPreference.getSummaryString()
+        → imm.getEnabledInputMethodSubtypeList(imi, true)
+        → subtype.getDisplayName()   // 优先 android:label
+        → ListFormatter 拼成「A、B和C」
+
+    只声明一条 subtype，原因：
+      1. 小标题按 subtype 逐条拼接，一条时用它的 label 就能得到一行完整的能力说明，观感与其它输入法一致；
+      2. 系统「切换输入法」弹窗会把每条启用中的 subtype 展开成一行，而条目文字由系统固定取 IME 名称
+         （不读 subtype 的 label，已实测确认），声明多条就会出现数个一模一样的「小鲸鱼输入法」。
+
+    输入方式（九键 / 双拼 / 笔画 / 手写 / 英文）在应用内的「输入方式」菜单里切换，不走系统 subtype。
+
+    必需的三个属性：
+      · android:label：小标题文案；
+      · android:imeSubtypeLocale：没有 locale 的 subtype 取不到显示名，小标题会是空白；
+      · android:imeSubtypeMode=keyboard 与 extraValue 里的 AsciiCapable：密码框、
+        hintLocales 等场景的行为依赖它，不要删。
+-->
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:label="@string/app_name"
+    android:settingsActivity="com.whale.ime.ui.activity.SettingsActivity">
+
+    <subtype
+        android:icon="@drawable/app_icon"
+        android:label="@string/ime_subtype_summary"
+        android:imeSubtypeLocale="zh_CN"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
+        android:overridesImplicitlyEnabledSubtype="true" />
+
+</input-method>

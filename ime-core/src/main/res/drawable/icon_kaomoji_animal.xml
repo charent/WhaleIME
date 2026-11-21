@@ -1,0 +1,47 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="88dp"
+    android:height="88dp"
+    android:viewportWidth="88"
+    android:viewportHeight="88">
+    <path
+        android:pathData="M15,17C8.2,27.5 8.2,60.5 15,71"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M73,17C79.8,27.5 79.8,60.5 73,71"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <!-- 猫耳 -->
+    <path
+        android:pathData="M26,32L29,15L40,25"
+        android:strokeColor="#000000"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M62,32L59,15L48,25"
+        android:strokeColor="#000000"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <!-- 眼睛 -->
+    <path
+        android:pathData="M30,42a3,3 0 1,0 6,0a3,3 0 1,0 -6,0Z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M52,42a3,3 0 1,0 6,0a3,3 0 1,0 -6,0Z"
+        android:fillColor="#000000" />
+    <!-- ω 嘴 -->
+    <path
+        android:pathData="M38,53C40.5,59 43.5,59 46,53C48.5,59 51.5,59 54,53"
+        android:strokeColor="#000000"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+</vector>
