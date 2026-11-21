@@ -10,6 +10,9 @@
     执行，产物 pull 回来。61 万词条在模拟器上编一遍约 1~2 分钟，比真机首启编译（十分钟
     级 + 耗电）划算，也不进首启路径。
 
+    产出直接覆盖 assets\rime\build\ 且**已纳入版本管理**（CI 与干净 clone 无法重建这批 bin），
+    重新生成后必须把 bin 一起提交，否则打出的 APK 缺词库、首启要现场编译。
+
     产出（全部覆盖 assets\rime\build\）：
       - pinyin.table.bin / pinyin.prism.bin      中文主词库
       - t9_pinyin.prism.bin                      九键 prism（与 pinyin 共用词典，checksum 必须配套）

@@ -6,8 +6,6 @@ local.properties
 # 只忽略构建产物目录本身，不用裸 `build/`——否则会把源码包（keyboard/build 这类）一起吞掉
 /build/
 /*/build/
-# Rime 词典 bin（scripts/precompile-dict.ps1 在设备上生成，不入库）
-ime-native/src/main/assets/rime/build/
 captures/
 .externalNativeBuild
 # externalNativeBuild（hccr_jni）的 CMake 本地编译缓存

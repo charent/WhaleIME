@@ -211,9 +211,11 @@ pwsh -File scripts/verify-emoji.ps1               # 校验表情/颜文字数据
 - 引擎/词库的演进历史（每次换词库的原因、体积、影响）都记在 `ime-core/.../config/DictDataVersion.kt` 的注释里，
   动 schema / 词库前先读；**改动 `assets/rime` 后必须递增 `DictDataVersion.CURRENT_RIME_DICT_DATA_VERSIOM`**
   （格式 `yyyyMMddHHmm`），否则已安装设备不会重新拷贝。
-- `ime-native/src/main/assets/rime/build/` 是构建产物（`build/` 已 gitignore），由 `scripts/precompile-dict.ps1`
-  生成：把 `rime-frost`（白霜拼音）中文词库与英文词库在模拟器上经 `rime_deployer` 编成 `table/prism bin`
-  再拉回。`-WithCells`（默认开）控制是否编入 23 个细胞词库（约 +40MB APK）。
+- `ime-native/src/main/assets/rime/build/` 的 `table/prism bin` **已入库**（26 个文件约 102MB，最大
+  `pinyin.table.bin` 约 60MB）。它由 `scripts/precompile-dict.ps1` 生成：把 `rime-frost`（白霜拼音）中文词库
+  与英文词库在模拟器上经 `rime_deployer` 编成 bin 再拉回。CI 与干净 clone 都无法重建它（词库源不入库、
+  需要模拟器），所以缺少这批文件时打出来的 APK 会在首启时现场编译词典——改动词库后必须重新生成并提交。
+  `-WithCells`（默认开）控制是否编入 23 个细胞词库（约 +40MB APK）。
 - 英文词典由 `en_dicts/en` + `en_dicts/en_ext` 汇总，并给每条「code 含大写」的词补一条小写码
   （`GPU` 也有 `gpu`），实现检索大小写不敏感而候选文本保持原样。
 - 词库源（约 600MB）不入库，默认从本地 `docs/prototype/rime-frost` 读取，可用 `-DictSource` 指定别处。

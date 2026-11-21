@@ -1,0 +1,78 @@
+__build_info:
+  rime_version: 1.17.0
+  timestamps:
+    default: 1795232558
+    default.custom: 0
+    pinyin.custom: 0
+    pinyin.schema: 1792898871
+cn_en:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: 0.5
+  user_dict: "en_dicts/cn_en"
+emoji:
+  inherit_comment: false
+  opencc_config: emoji.json
+  option_name: emoji
+engine:
+  filters:
+    - "simplifier@emoji"
+    - "simplifier@traditionalize"
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - speller
+    - punctuator
+    - selector
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - echo_translator
+    - script_translator
+    - "table_translator@english"
+    - "table_translator@cn_en"
+english:
+  dictionary: english
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: 1.1
+grammar:
+  language: "zh-hans"
+menu:
+  page_size: 5
+punctuator:
+  symbols:
+    "/": ["@", "＃", "＊", "＋", "……", "〜", "（", "）", "、", "/"]
+recognizer:
+  patterns:
+    punct: "^/([0-9]|10|[A-Za-z]*?)$"
+schema:
+  dependencies:
+    - english
+  name: "全键拼音"
+  schema_id: pinyin
+speller:
+  algebra:
+    - "abbrev/^([a-z]).+$/$1/"
+    - "abbrev/^([zcs]h).+$/$1/"
+  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA`/"
+  delimiter: "''"
+traditionalize:
+  opencc_config: s2t.json
+  option_name: traditionalization
+translator:
+  always_show_comments: true
+  contextual_suggestions: true
+  dictionary: pinyin
+  enable_correction: true
+  initial_quality: 1.2
+  spelling_hints: 100
