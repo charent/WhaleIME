@@ -14,6 +14,7 @@ captures/
 .cxx/
 .idea/
 *.jks
+*.p12
 # 签名材料（私钥 + 口令）整目录不入库；需要提交模板时用 *.example
 keystore/*
 !keystore/*.example

@@ -75,6 +75,7 @@ android {
             def keystoreFile = rootProject.file(keystoreFilePath)
             if (keystoreFile.exists() && keystorePassword && keyAliasName && keyPasswordValue) {
                 storeFile keystoreFile
+                storeType "PKCS12"
                 storePassword keystorePassword
                 keyAlias keyAliasName
                 keyPassword keyPasswordValue
@@ -96,7 +97,8 @@ android {
 
         debug {
             applicationIdSuffix ".debug"
-            signingConfig signingConfigs.release
+            // 不指定 signingConfig：debug 走 Android 默认的 ~/.android/debug.keystore，
+            // release 私钥只在打正式包时使用，克隆仓库即可直接编 debug。
         }
 
     }
