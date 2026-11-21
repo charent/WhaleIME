@@ -28,6 +28,16 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      # ime-native/build.gradle 固定了 cmake 3.31.6 与 ndk 28.0.13004108，
+      # runner 自带的 SDK 里没有这两个版本，缺失时 configureCMake* 直接失败。
+      - name: Install CMake and NDK
+        run: |
+          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          if [ ! -x "$SDKMANAGER" ]; then
+            SDKMANAGER="$(ls -d "$ANDROID_SDK_ROOT"/cmdline-tools/*/bin/sdkmanager | head -n 1)"
+          fi
+          yes | "$SDKMANAGER" --install "cmake;3.31.6" "ndk;28.0.13004108"
+
       - name: Check for local absolute paths
         shell: pwsh
         run: ./scripts/check-local-paths.ps1
