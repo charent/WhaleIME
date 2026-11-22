@@ -53,7 +53,7 @@ pwsh -File scripts/verify-emoji.ps1               # 校验表情/颜文字数据
 - SDK 路径不入库：本地写在 `local.properties`（模板 `local.properties.example`），或用 `ANDROID_SDK_ROOT` /
   `ANDROID_HOME` 覆盖；统一由 `scripts/lib/android-sdk.ps1` 解析。**仓库内禁止出现盘符绝对路径**，
   `scripts/check-local-paths.ps1`（CI 已挂）会拦截。
-- CI：`.github/workflows/build.yml` 在 `v*` tag 上跑 `./gradlew assemble` 并上传 release 资产。
+- CI：`.github/workflows/build.yml` 在 `v*` tag 上跑 `./gradlew assembleRelease` 并上传 release 资产（不出 debug 包）。
 
 ## 模块布局
 

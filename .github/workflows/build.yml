@@ -60,8 +60,9 @@ jobs:
         shell: pwsh
         run: ./scripts/check-local-paths.ps1
 
+      # 只出 release 包：debug 包签名随机、体积更大，不属于发布产物。
       - name: Build Release APK
-        run: ./gradlew assemble
+        run: ./gradlew assembleRelease
         env:
           RELEASE_STORE_FILE: keystore/release.p12
           RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
@@ -79,9 +80,9 @@ jobs:
             exit 1
           fi
           shopt -s nullglob
-          apks=(app/build/outputs/apk/release/*.apk app/build/outputs/apk/debug/*.apk)
+          apks=(app/build/outputs/apk/release/*.apk)
           if [ ${#apks[@]} -eq 0 ]; then
-            echo "::error::没有产出任何 APK"
+            echo "::error::没有产出 release APK"
             exit 1
           fi
           for apk in "${apks[@]}"; do
@@ -95,7 +96,6 @@ jobs:
         with:
           files: |
             app/build/outputs/apk/release/*.apk
-            app/build/outputs/apk/debug/*.apk
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
