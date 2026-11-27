@@ -11,43 +11,61 @@
 
 小鲸鱼输入法是一款完全离线的、开箱即用的安卓中文输入法，基于开源的 [Rime](http://rime.im)（中州韵，librime 1.17.0）引擎构建，界面层采用更现代的 Jetpack Compose，使用 Kotlin 编写，彻底抛弃传统的 Android View。输入、纠错、候选、词典与手写识别全部在本地完成，不联网，不采集任何用户数据（详见 [隐私政策](privacy-policy.md)）。
 
+<div align="center">
+
+**仓库地址**：[GitHub](https://github.com/charent/WhaleIME) · [Gitee](https://gitee.com/charent/WhaleIME)
+
+GitHub 为主仓库，Gitee 为国内镜像，访问任一个即可（提 issue、看更新都行）。
+
+</div>
+
 ## 界面预览
 
 <table width="100%">
   <tr>
-    <td align="center" valign="top" width="33%">
+    <td align="center" valign="top" colspan="3" width="25%">
       <img src="images/9键盘.png" width="100%" alt="九宫格键盘"><br>
       <sub>九宫格（T9）</sub>
     </td>
-    <td align="center" valign="top" width="33%">
+    <td align="center" valign="top" colspan="3" width="25%">
       <img src="images/14键.png" width="100%" alt="14 键键盘"><br>
       <sub>14 键</sub>
     </td>
-    <td align="center" valign="top" width="33%">
+    <td align="center" valign="top" colspan="3" width="25%">
+      <img src="images/26键盘.png" width="100%" alt="26 键全键盘"><br>
+      <sub>26 键全拼</sub>
+    </td>
+    <td align="center" valign="top" colspan="3" width="25%">
       <img src="images/手写.png" width="100%" alt="手写识别"><br>
       <sub>手写识别</sub>
     </td>
   </tr>
   <tr>
-    <td align="center" valign="top" width="33%">
-      <img src="images/纠错.png" width="100%" alt="邻键纠错与模糊音"><br>
+    <td align="center" valign="top" colspan="4" width="33%">
+      <img src="images/智能纠错.png" width="100%" alt="邻键纠错与模糊音"><br>
       <sub>邻键纠错 / 模糊音</sub>
     </td>
-    <td align="center" valign="top" width="33%">
+    <td align="center" valign="top" colspan="4" width="33%">
       <img src="images/快捷功能.png" width="100%" alt="快捷功能与工具栏"><br>
       <sub>快捷功能</sub>
     </td>
-    <td align="center" valign="top" width="33%">
+    <td align="center" valign="top" colspan="4" width="33%">
       <img src="images/最全emoji表情.png" width="100%" alt="表情与颜文字面板"><br>
       <sub>表情 / 颜文字</sub>
     </td>
   </tr>
   <tr>
-    <td align="center" valign="top" colspan="3">
-      <img src="images/多彩主题.png" width="27%" alt="内置主题与自定义主题">
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="images/设置页.png" width="27%" alt="声明式设置界面"><br>
-      <sub>多彩主题与设置界面</sub>
+    <td align="center" valign="top" colspan="4" width="33%">
+      <img src="images/等式计算.png" width="100%" alt="数字键盘表达式计算"><br>
+      <sub>算式计算</sub>
+    </td>
+    <td align="center" valign="top" colspan="4" width="33%">
+      <img src="images/多彩主题.png" width="100%" alt="内置主题与自定义主题"><br>
+      <sub>多彩主题</sub>
+    </td>
+    <td align="center" valign="top" colspan="4" width="33%">
+      <img src="images/设置页.png" width="100%" alt="设置界面"><br>
+      <sub>声明式设置界面</sub>
     </td>
   </tr>
 </table>
@@ -67,7 +85,7 @@
 - **物理键盘支持**：外接键盘时可显示跟随光标的浮动候选栏，也可选择继续显示软键盘。
 - **主题与外观定制**：23 款内置主题（简约/原生浅深色、透明浅色 + 18 档纯色色卡），自定义主题支持背景图裁剪、亮度与浅/深键帽，深色模式跟随系统；候选字号、键帽字号/粗细、按键间距、圆角、符号上滑档位等均可单独调节。
 - **按键反馈**：音效与触感分别开关，支持「跟随系统」或应用内 1~5 档强度。
-- **数据自主与备份**：备份包（zip v2）按分类导出/恢复——用户词典、学习词、剪贴板、常用语、符号、设置分组、主题、Rime 用户目录，导入时可选覆盖或合并；可定期自动备份到用户授权的目录，只保留最近 5 份。
+- **数据自主与备份**：备份包按分类导出/恢复——用户词典、学习词、剪贴板、常用语、符号、设置分组、主题、Rime 用户目录，导入时可选覆盖或合并；可定期自动备份到用户授权的目录，只保留最近 5 份。
 - **声明式设置界面**：所有偏好集中管理、按元数据自动渲染，支持拼音首字母搜索、设置页内试输入悬浮球、键盘端深链跳转；首次启动展示隐私政策，未启用输入法时给出启用/切换引导。
 
 ## 设计与架构
