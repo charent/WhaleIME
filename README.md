@@ -23,47 +23,53 @@ GitHub 为主仓库，Gitee 为国内镜像，访问任一个即可（提 issue�
 
 <table width="100%">
   <tr>
-    <td align="center" valign="top" colspan="3" width="25%">
+    <td align="center" valign="top" width="25%">
       <img src="images/9键盘.png" width="100%" alt="九宫格键盘"><br>
       <sub>九宫格（T9）</sub>
     </td>
-    <td align="center" valign="top" colspan="3" width="25%">
+    <td align="center" valign="top" width="25%">
       <img src="images/14键.png" width="100%" alt="14 键键盘"><br>
       <sub>14 键</sub>
     </td>
-    <td align="center" valign="top" colspan="3" width="25%">
+    <td align="center" valign="top" width="25%">
       <img src="images/26键盘.png" width="100%" alt="26 键全键盘"><br>
       <sub>26 键全拼</sub>
     </td>
-    <td align="center" valign="top" colspan="3" width="25%">
+    <td align="center" valign="top" width="25%">
       <img src="images/手写.png" width="100%" alt="手写识别"><br>
       <sub>手写识别</sub>
     </td>
   </tr>
+</table>
+
+<table width="100%">
   <tr>
-    <td align="center" valign="top" colspan="4" width="33%">
+    <td align="center" valign="top" width="33%">
       <img src="images/智能纠错.png" width="100%" alt="邻键纠错与模糊音"><br>
       <sub>邻键纠错 / 模糊音</sub>
     </td>
-    <td align="center" valign="top" colspan="4" width="33%">
+    <td align="center" valign="top" width="33%">
       <img src="images/快捷功能.png" width="100%" alt="快捷功能与工具栏"><br>
       <sub>快捷功能</sub>
     </td>
-    <td align="center" valign="top" colspan="4" width="33%">
+    <td align="center" valign="top" width="33%">
       <img src="images/最全emoji表情.png" width="100%" alt="表情与颜文字面板"><br>
       <sub>表情 / 颜文字</sub>
     </td>
   </tr>
+</table>
+
+<table width="100%">
   <tr>
-    <td align="center" valign="top" colspan="4" width="33%">
+    <td align="center" valign="top" width="33%">
       <img src="images/等式计算.png" width="100%" alt="数字键盘表达式计算"><br>
       <sub>算式计算</sub>
     </td>
-    <td align="center" valign="top" colspan="4" width="33%">
+    <td align="center" valign="top" width="33%">
       <img src="images/多彩主题.png" width="100%" alt="内置主题与自定义主题"><br>
       <sub>多彩主题</sub>
     </td>
-    <td align="center" valign="top" colspan="4" width="33%">
+    <td align="center" valign="top" width="33%">
       <img src="images/设置页.png" width="100%" alt="设置界面"><br>
       <sub>声明式设置界面</sub>
     </td>
