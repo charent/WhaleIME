@@ -52,6 +52,10 @@ interface ClipboardDao : BaseDao<Clipboard> {
     @Query("SELECT COUNT(*) FROM clipboard WHERE content = :content AND time <= :expireBefore")
     fun countExpired(content: String, expireBefore: Long): Int
 
+    /** 这条内容是否是我们记录过的（清空历史前判断系统剪贴板要不要一起清） */
+    @Query("SELECT COUNT(*) FROM clipboard WHERE content = :content")
+    fun countByContent(content: String): Int
+
     /** 最老的可删记录（置顶行与 [since] 之前的记录都不算）：不保留历史时的下一个到期边界 */
     @Query("SELECT MIN(time) FROM clipboard WHERE isKeep = 0 AND time >= :since")
     fun oldestDeletableTime(since: Long): Long?

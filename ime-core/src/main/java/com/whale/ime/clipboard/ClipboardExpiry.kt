@@ -117,6 +117,33 @@ object ClipboardExpiry {
         scheduleNext(dao, now)
     }
 
+    /**
+     * 单条被用户删除：系统剪贴板里正放着它的话，一起清掉。
+     *
+     * 删库不会让系统剪贴板里的内容消失（那是系统的事），不主动清的话，
+     * 别的 App 长按还能粘贴到刚被删掉的那条。只在功能生效时接管，关闭时保持原有行为。
+     */
+    fun onContentRemoved(content: String) {
+        if (!isEnabled()) return
+        if (currentClipboardText() == content) clearSystemClipboard()
+        // 被删的是不是最新那条都重排一次：到期边界取决于剩下的记录
+        refresh()
+    }
+
+    /**
+     * 整表即将被清空：系统剪贴板里要是正放着我们记录过的内容，一起清掉。
+     *
+     * **必须在删库之前调用**——删完就查不到「这条是不是我们记录的」了。
+     */
+    fun clearSystemClipboardIfRecorded() {
+        if (!isEnabled()) return
+        val current = currentClipboardText() ?: return
+        val recorded = runCatching {
+            WhaleDatabase.instance.clipboardDao().countByContent(current)
+        }.getOrDefault(0)
+        if (recorded > 0) clearSystemClipboard()
+    }
+
     /** 到点动作：清系统剪贴板 + 按设置删历史。只做已经过期的，未来的一律不动 */
     private fun sweep(dao: ClipboardDao, now: Long) {
         val duration = durationMs()

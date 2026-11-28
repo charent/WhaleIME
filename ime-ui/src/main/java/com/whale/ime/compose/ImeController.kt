@@ -279,6 +279,8 @@ class ImeController(val service: ImeService) {
 
     /** 确认清空：删掉全部剪贴板历史（含置顶），并让面板重新分页加载 */
     fun clearClipboardHistory() {
+        // 系统剪贴板里要是正放着我们记录过的内容，一起清掉（删完就查不到了，所以放在删除前）
+        runCatching { ClipboardExpiry.clearSystemClipboardIfRecorded() }
         runCatching { WhaleDatabase.instance.clipboardDao().deleteAll() }
         // 历史已经空表：到期边界一个都不剩，让定时器按当前设置重排（内部会取消旧 Job）
         runCatching { ClipboardExpiry.refresh() }

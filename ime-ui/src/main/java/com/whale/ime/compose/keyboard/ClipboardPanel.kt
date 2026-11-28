@@ -225,6 +225,8 @@ private fun ClipboardList(uiState: ImeUiState, controller: ImeController) {
                     runCatching {
                         if (mode == KeyboardMenuMode.ClipBoard) {
                             WhaleDatabase.instance.clipboardDao().deleteByContent(item.content)
+                            // 删掉的正是系统剪贴板里那条时，同步让它失效，否则别的 App 长按还能粘贴到
+                            ClipboardExpiry.onContentRemoved(item.content)
                         } else {
                             WhaleDatabase.instance.phraseDao().deleteByContent(item.content)
                             // 常用语快捷码可能已被注入候选，索引同步移除
