@@ -87,6 +87,12 @@
     <string name="clipboard_layout_mode_grid">双列布局</string>
     <string name="clipboard_layout_mode_flexbox">紧凑布局</string>
     <string name="clipboard_clear">清空剪贴板</string>
+    <string name="clipboard_expire_enable">剪贴板内容自动失效</string>
+    <string name="clipboard_expire_enable_summary">复制的内容到期后从系统剪贴板移除，长按粘贴也拿不到</string>
+    <string name="clipboard_expire_duration">内容保留时长</string>
+    <string name="clipboard_expire_keep_history">失效后保留到剪贴板历史</string>
+    <string name="clipboard_expire_keep_history_summary">关闭后，之后复制的内容到期即从历史中删除；关闭前已有的记录不受影响</string>
+    <string name="num_10_minutes">10 分钟</string>
     <string name="clipboard">剪贴板</string>
     <string name="phrases">常用语</string>
     <string name="add_phrases">增加常用语</string>

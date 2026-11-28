@@ -191,7 +191,12 @@ fun CandidateBar(
                                         keyboardMenuPreset[KeyboardMenuMode.LockClipBoard],
                                     )
                                 }
-                                MenuRow(items = items, controller = controller, panelOpen = panelOpen)
+                                MenuRow(
+                                    items = items,
+                                    controller = controller,
+                                    panelOpen = panelOpen,
+                                    clipboardLocked = uiState.clipboardLocked,
+                                )
                             }
 
                             else -> {
@@ -494,12 +499,14 @@ private fun CandidateChip(
  *
  * @param panelOpen 当前是不是面板态（见 `isPanelKeyboardType`）。是则右侧按钮是「×」，
  *   只关闭面板回到输入键盘；否则是「收起输入法」的下箭头。
+ * @param clipboardLocked 剪贴板面板的锁定态：锁头按钮据此高亮，点按后立即重绘。
  */
 @Composable
 private fun MenuRow(
     items: List<KeyboardMenuItem>,
     controller: ImeController,
     panelOpen: Boolean,
+    clipboardLocked: Boolean = false,
     reorderable: Boolean = false,
     onReorder: ((List<KeyboardMenuItem>) -> Unit)? = null,
     onReorderFinished: (() -> Unit)? = null,
@@ -548,7 +555,7 @@ private fun MenuRow(
                 items.take(MAX_TOOLBAR_ITEMS).forEach { item ->
                     key(item.keyboardMenuMode.name) {
                         val idx = currentItems.indexOfFirst { it.keyboardMenuMode == item.keyboardMenuMode }
-                        val isLocked = item.keyboardMenuMode == KeyboardMenuMode.LockClipBoard && controller.isClipboardLocked
+                        val isLocked = item.keyboardMenuMode == KeyboardMenuMode.LockClipBoard && clipboardLocked
                         val tint = if (isLocked) palette.accent else palette.onSurface
                         val dragging = dragIndex == idx
                         Box(

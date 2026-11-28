@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import com.whale.ime.config.SchemaIds
-import com.whale.ime.clipboard.ClipboardLock
+import com.whale.ime.clipboard.ClipboardExpiry
 
 /** SETTINGS 容器内的三种页面 */
 enum class SettingsPage {
@@ -74,6 +74,10 @@ data class ImeUiState(
     val phraseErrorMessage: Int? = null,
     /** 剪贴板内容变化计数：面板据此重新分页加载 */
     val clipboardRevision: Int = 0,
+    /** 剪贴板/常用语面板已锁定：选词上屏后不切回输入键盘（工具栏锁头按钮） */
+    val clipboardLocked: Boolean = false,
+    /** 「清空剪贴板历史」的二次确认层是否展开 */
+    val clearClipboardConfirm: Boolean = false,
 )
 
 /**
@@ -200,7 +204,13 @@ class ImeController(val service: ImeService) {
     }
 
     /** 关闭当前面板（符号/剪贴板/功能宫格/编辑键盘）回到输入键盘：候选栏右侧「×」 */
-    fun closePanel() = switchToInputKeyboard()
+    fun closePanel() {
+        // 关面板等于放弃这次清空：确认层不能留到下次打开面板时又冒出来
+        if (_state.value.clearClipboardConfirm) {
+            update { it.copy(clearClipboardConfirm = false) }
+        }
+        switchToInputKeyboard()
+    }
 
     /**
      * 打开 SETTINGS 容器的某一页；已经停在同一页时再次触发 = 收回输入键盘。
@@ -245,18 +255,40 @@ class ImeController(val service: ImeService) {
         if (samePanel) {
             switchToInputKeyboard()
         } else {
-            ClipboardLock.enabled = false
-            update { it.copy(clipboardMode = mode) }
+            // 换面板时两个临时状态都作废：锁定只对「这一次打开的面板」有效，
+            // 未确认的清空请求也不该跟着带到下一次
+            update { it.copy(clipboardMode = mode, clipboardLocked = false, clearClipboardConfirm = false) }
             switchKeyboard(KeyboardManager.KeyboardType.ClipBoard)
         }
     }
 
-    fun toggleClipboardLock() {
-        ClipboardLock.enabled = !ClipboardLock.enabled
-        bumpKeyboardRevision()
-    }
+    /** 工具栏锁头：锁定后选词上屏不切回输入键盘，方便连续上屏多条 */
+    fun toggleClipboardLock() = update { it.copy(clipboardLocked = !it.clipboardLocked) }
 
-    val isClipboardLocked: Boolean get() = ClipboardLock.enabled
+    /**
+     * 点击当时的锁定状态。
+     *
+     * 上屏的点击回调可能持有旧一帧的 [ImeUiState]，所以这里现读；界面上的高亮请读 `uiState.clipboardLocked`。
+     */
+    val isClipboardLocked: Boolean get() = _state.value.clipboardLocked
+
+    /** 工具栏垃圾桶：先弹二次确认，确认后才真正清空 */
+    fun requestClearClipboard() = update { it.copy(clearClipboardConfirm = true) }
+
+    fun dismissClearClipboardConfirm() = update { it.copy(clearClipboardConfirm = false) }
+
+    /** 确认清空：删掉全部剪贴板历史（含置顶），并让面板重新分页加载 */
+    fun clearClipboardHistory() {
+        runCatching { WhaleDatabase.instance.clipboardDao().deleteAll() }
+        // 历史已经空表：到期边界一个都不剩，让定时器按当前设置重排（内部会取消旧 Job）
+        runCatching { ClipboardExpiry.refresh() }
+        update {
+            it.copy(
+                clearClipboardConfirm = false,
+                clipboardRevision = it.clipboardRevision + 1,
+            )
+        }
+    }
 
     // ------------------------------------------------------------------
     // 菜单动作
@@ -339,6 +371,9 @@ class ImeController(val service: ImeService) {
             }
 
             KeyboardMenuMode.ClipBoard, KeyboardMenuMode.Phrases -> openClipboardPanel(mode)
+
+            // 只在剪贴板列表态出现：清空的是剪贴板历史，不是常用语
+            KeyboardMenuMode.ClearClipBoard -> requestClearClipboard()
 
             KeyboardMenuMode.Custom -> openSettingsPage(SettingsPage.Customize)
 

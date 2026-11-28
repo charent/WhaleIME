@@ -3,6 +3,7 @@ package com.whale.ime.boot
 import android.annotation.SuppressLint
 import android.content.Context
 import com.whale.ime.boot.rime.RimeDataInstaller
+import com.whale.ime.clipboard.ClipboardExpiry
 import com.whale.ime.clipboard.ClipboardHelper
 import com.whale.ime.config.SchemaIds
 import com.whale.ime.dispatch.InputDispatcher
@@ -38,6 +39,8 @@ class Launcher {
         ThemeManager.init(context.resources.configuration)
         WhaleDatabase.instance.sideSymbolDao().getAllSideSymbolPinyin()  //操作一次查询，提前创建数据库，避免使用时才创建数据库
         ClipboardHelper.init()
+        // 进程重启后补做到期动作（上次进程被杀时可能没来得及清系统剪贴板），并按当前设置重排下一次
+        ClipboardExpiry.init()
     }
 
     /**

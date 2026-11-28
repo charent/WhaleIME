@@ -255,6 +255,7 @@ private fun SettingsItem(
                     unit = item.unit,
                     defaultValue = item.defaultValue,
                     defaultLabel = item.defaultLabel?.let { string(it) },
+                    labelFormatter = item.labelFormatter,
                     enabled = enabled,
                     onValueChange = {
                         pref.setValue(it)

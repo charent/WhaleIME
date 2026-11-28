@@ -84,6 +84,11 @@ abstract class ManagedPreferenceUi(
         val step: Int = 1,
         @StringRes
         val defaultLabel: Int? = null,
+        /**
+         * 读数的自定义格式化（例如把 600 秒显示成「10 分钟」）。
+         * 为空时沿用 `"$value $unit"`，滑杆下方的范围提示也一起走它。
+         */
+        val labelFormatter: ((Int) -> String)? = null,
         enableUiOn: (() -> Boolean)? = null,
         advanced: Boolean = false,
     ) : ManagedPreferenceUi(key, enableUiOn, advanced)

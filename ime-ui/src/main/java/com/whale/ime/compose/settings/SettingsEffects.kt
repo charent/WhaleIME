@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
 import com.whale.ime.boot.Launcher
+import com.whale.ime.clipboard.ClipboardExpiry
 import com.whale.ime.keyboard.state.KeyboardManager
 import com.whale.ime.keyboard.layout.InputModeSwitcher
 import com.whale.ime.preference.AppPrefs
@@ -75,6 +76,14 @@ object SettingsEffects {
         "pinyin_v_as_u_enable",
     )
 
+    /** 剪贴板内容自动失效：开关、时长、是否保留历史都要重排到期定时器 */
+    private val ClipboardExpiryKeys = setOf(
+        "clipboard_enable",
+        "clipboard_expire_enable",
+        "clipboard_expire_duration",
+        "clipboard_expire_keep_history",
+    )
+
     /** 统一的变更入口：按 key 分发到对应副作用 */
     fun onChanged(key: String) {
         when (key) {
@@ -83,6 +92,7 @@ object SettingsEffects {
             in ImeOptionKeys -> applyImeOption()
             in SchemaKeys -> applyPinyinSchema()
             in CorrectionKeys -> applyCorrection()
+            in ClipboardExpiryKeys -> ClipboardExpiry.refresh()
         }
     }
 

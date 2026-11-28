@@ -76,6 +76,7 @@ abstract class ManagedPreferenceCategory(
         step: Int = 1,
         @StringRes
         defaultLabel: Int? = null,
+        labelFormatter: ((Int) -> String)? = null,
         advanced: Boolean = false,
         enableUiOn: (() -> Boolean)? = null,
     ): ManagedPreference.PInt {
@@ -87,7 +88,8 @@ abstract class ManagedPreferenceCategory(
             )
         else
             ManagedPreferenceUi.SeekBarInt(
-                title, key, defaultValue, min, max, unit, step, defaultLabel, enableUiOn, advanced
+                title, key, defaultValue, min, max, unit, step, defaultLabel,
+                labelFormatter, enableUiOn, advanced
             )
         pref.register()
         ui.registerUi()

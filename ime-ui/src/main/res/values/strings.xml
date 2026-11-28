@@ -114,7 +114,20 @@
     <string name="clipboard_layout_mode_grid">双列布局</string>
     <string name="clipboard_layout_mode_flexbox">紧凑布局</string>
     <string name="clipboard_clear">清空剪贴板</string>
+    <string name="clipboard_expire_enable">剪贴板内容自动失效</string>
+    <string name="clipboard_expire_enable_summary">复制的内容到期后从系统剪贴板移除，长按粘贴也拿不到</string>
+    <string name="clipboard_expire_duration">内容保留时长</string>
+    <string name="clipboard_expire_keep_history">失效后保留到剪贴板历史</string>
+    <string name="clipboard_expire_keep_history_summary">关闭后，之后复制的内容到期即从历史中删除；关闭前已有的记录不受影响</string>
+    <string name="num_10_minutes">10 分钟</string>
+    <!--剪贴板条目上的到期倒计时：999 秒以内按秒，超过按分钟（保留一位小数）-->
+    <string name="clipboard_expire_countdown_seconds">%1$d 秒</string>
+    <string name="clipboard_expire_countdown_minutes">%1$s 分钟</string>
     <string name="clipboard_empty_ltip">无任何内容</string>
+    <!--剪贴板面板工具栏「清空剪贴板」的二次确认-->
+    <string name="clipboard_clear_confirm_title">清空剪贴板历史？</string>
+    <string name="clipboard_clear_confirm_message">会删除全部剪贴板历史（包括置顶的记录），且无法恢复。</string>
+    <string name="clipboard_clear_confirm_action">清空</string>
     <string name="about">关于</string>
     <string name="feedback">吐槽与反馈</string>
     <string name="app_version">应用版本</string>

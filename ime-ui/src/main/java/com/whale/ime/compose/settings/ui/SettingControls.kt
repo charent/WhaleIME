@@ -189,6 +189,8 @@ fun SettingSliderRow(
     summary: String? = null,
     defaultValue: Int? = null,
     defaultLabel: String? = null,
+    /** 读数自定义格式化（如秒数显示成「10 分钟」）；为空时显示 `"$value $unit"` */
+    labelFormatter: ((Int) -> String)? = null,
     enabled: Boolean = true,
 ) {
     var expanded by rememberSaveable(title) { mutableStateOf(false) }
@@ -229,7 +231,7 @@ fun SettingSliderRow(
             }
             Text(
                 text = if (isDefault && defaultLabel != null) defaultLabel
-                else "$shown $unit".trim(),
+                else labelFormatter?.invoke(shown) ?: "$shown $unit".trim(),
                 fontSize = 13.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = alpha),
             )
@@ -270,7 +272,13 @@ fun SettingSliderRow(
                     }
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = if (unit.isEmpty()) "$min ~ $max" else "$min ~ $max $unit",
+                        text = if (labelFormatter != null) {
+                            "${labelFormatter(min)} ~ ${labelFormatter(max)}"
+                        } else if (unit.isEmpty()) {
+                            "$min ~ $max"
+                        } else {
+                            "$min ~ $max $unit"
+                        },
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
